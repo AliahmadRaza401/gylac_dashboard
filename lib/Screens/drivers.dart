@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
 import 'package:gylac_dashboard/Utils/widget.dart';
 
-
 class DriversScreen extends StatefulWidget {
   const DriversScreen({Key? key}) : super(key: key);
 
@@ -26,13 +25,13 @@ class _DriversScreenState extends State<DriversScreen>
 
   CollectionReference postStream =
       FirebaseFirestore.instance.collection('drivers');
-CollectionReference rejectedstream =
+  CollectionReference rejectedstream =
       FirebaseFirestore.instance.collection('drivers');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(30),
+        padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -81,68 +80,36 @@ CollectionReference rejectedstream =
                         return Center(child: CircularProgressIndicator());
                       }
                       return snapshot.data!.docs.length == 0
-                          ? Center(
-                              child: Container(
-                                height: MediaQuery.of(context).size.height,
-                                // color: Colors.amber,
-                                padding: EdgeInsets.symmetric(vertical: 100),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "No Active Properties",
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          color: Color(0xffE87B31)),
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .02,
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          .7,
-                                      child: Wrap(
-                                        children: [
-                                          Text(
-                                            "It appears you have not any properties yet.",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xffA0A0A0)),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .03,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
+                          ? Container(
+                              height: MediaQuery.of(context).size.height,
+                              // color: Colors.amber,
+                              padding: EdgeInsets.symmetric(vertical: 100),
+                              child: Center(
+                                child: Text("Noting to show!"),
+                              ))
                           : ListView(
                               children: snapshot.data!.docs
                                   .map((DocumentSnapshot document) {
                                 return allDrivers(
-                                    document['dp'],
-                                    document['email'],
-                                    document['fullName'],
-                                    document['mobileNumber'],
-                                    document['vehicleCompany'],
-                                    document['status'],
-                                    document['id']
-                                        );
+                                  document['dp'],
+                                  document['email'],
+                                  document['fullName'],
+                                  document['mobileNumber'],
+                                  document['vehicleCompany'],
+                                  document['status'],
+                                  document['id'],
+                                  document['vDp'],
+                                  document['vehicleNumber'],
+                                  document['vehicleDesign'],
+                                  document['vehicleChassisNumber'],
+                                  document['status'],
+                                );
                               }).toList(),
                             );
                     },
                   ),
                 ),
-                
-
-                 Container(
+                Container(
                   height: 900,
                   width: 1000,
                   child: StreamBuilder<QuerySnapshot>(
@@ -157,74 +124,38 @@ CollectionReference rejectedstream =
                         return Center(child: CircularProgressIndicator());
                       }
                       return snapshot.data!.docs.length == 0
-                          ? Center(
-                              child: Container(
-                                height: MediaQuery.of(context).size.height,
-                                // color: Colors.amber,
-                                padding: EdgeInsets.symmetric(vertical: 100),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "No Active Properties",
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          color: Color(0xffE87B31)),
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .02,
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          .7,
-                                      child: Wrap(
-                                        children: [
-                                          Text(
-                                            "It appears you have not any properties yet.",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xffA0A0A0)),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .03,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
+                          ? Container(
+                              height: MediaQuery.of(context).size.height,
+                              // color: Colors.amber,
+                              padding: EdgeInsets.symmetric(vertical: 100),
+                              child: Center(
+                                child: Text("Noting to show!"),
+                              ))
                           : ListView(
                               children: snapshot.data!.docs
                                   .map((DocumentSnapshot document) {
-                                return document['status']=='approved'?allDrivers(
-                                    document['dp'],
-                                    document['email'],
-                                    document['fullName'],
-                                    document['mobileNumber'],
-                                    document['vehicleCompany'],
-                                    document['status'],
-                                    document['id']
-                                        ):Container();
+                                return document['status'] == 'approved'
+                                    ? allDrivers(
+                                        document['dp'],
+                                        document['email'],
+                                        document['fullName'],
+                                        document['mobileNumber'],
+                                        document['vehicleCompany'],
+                                        document['status'],
+                                        document['id'],
+                                        document['vDp'],
+                                        document['vehicleNumber'],
+                                        document['vehicleDesign'],
+                                        document['vehicleChassisNumber'],
+                                        document['status'],
+                                      )
+                                    : Container();
                               }).toList(),
                             );
                     },
                   ),
                 ),
-             
-             
-
-
-
-
-
-
-              Container(
+                Container(
                   // height: 900,
                   // width: 1000,
                   child: StreamBuilder<QuerySnapshot>(
@@ -239,60 +170,32 @@ CollectionReference rejectedstream =
                         return Center(child: CircularProgressIndicator());
                       }
                       return snapshot.data!.docs.length == 0
-                          ? Center(
-                              child: Container(
-                                height: MediaQuery.of(context).size.height,
-                                // color: Colors.amber,
-                                padding: EdgeInsets.symmetric(vertical: 100),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "No Active Request",
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          color: Color(0xffE87B31)),
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .02,
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          .7,
-                                      child: Wrap(
-                                        children: [
-                                          Text(
-                                            "It appears you have not any request yet.",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xffA0A0A0)),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .03,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
+                          ? Container(
+                              height: MediaQuery.of(context).size.height,
+                              // color: Colors.amber,
+                              padding: EdgeInsets.symmetric(vertical: 100),
+                              child: Center(
+                                child: Text("Noting to show!"),
+                              ))
                           : ListView(
                               children: snapshot.data!.docs
                                   .map((DocumentSnapshot document) {
-                                return document['status']=='rejected'?allDrivers(
-                                    document['dp'],
-                                    document['email'],
-                                    document['fullName'],
-                                    document['mobileNumber'],
-                                    document['vehicleCompany'],
-                                    document['status'],
-                                    document['id']
-                                        ):Container();
+                                return document['status'] == 'rejected'
+                                    ? allDrivers(
+                                        document['dp'],
+                                        document['email'],
+                                        document['fullName'],
+                                        document['mobileNumber'],
+                                        document['vehicleCompany'],
+                                        document['status'],
+                                        document['id'],
+                                        document['vDp'],
+                                        document['vehicleNumber'],
+                                        document['vehicleDesign'],
+                                        document['vehicleChassisNumber'],
+                                        document['status'],
+                                      )
+                                    : Container();
                               }).toList(),
                             );
                     },
@@ -309,7 +212,9 @@ CollectionReference rejectedstream =
   Widget mytext(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: MediaQuery.of(context).size.width * .013),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontSize: MediaQuery.of(context).size.width * .01),
     );
   }
 
@@ -324,8 +229,11 @@ CollectionReference rejectedstream =
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                onTap: (){
-                  FirebaseFirestore.instance.collection('drivers').doc(id).update({'status': 'approved'});
+                onTap: () {
+                  FirebaseFirestore.instance
+                      .collection('drivers')
+                      .doc(id)
+                      .update({'status': 'approved'});
                 },
                 child: Row(
                   children: [
@@ -340,9 +248,15 @@ CollectionReference rejectedstream =
                   ],
                 ),
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .02,
+              ),
               GestureDetector(
-                onTap: (){
-                  FirebaseFirestore.instance.collection('drivers').doc(id).update({'status': 'rejected'});
+                onTap: () {
+                  FirebaseFirestore.instance
+                      .collection('drivers')
+                      .doc(id)
+                      .update({'status': 'rejected'});
                 },
                 child: Row(
                   children: [
@@ -364,8 +278,20 @@ CollectionReference rejectedstream =
     );
   }
 
-  Widget allDrivers(String profileImage, String email, String userName,
-      String mobile, String companyName, status,String docId) {
+  Widget allDrivers(
+      String profileImage,
+      String email,
+      String userName,
+      String mobile,
+      String companyName,
+     String status,
+      String docId,
+      String vehicleimage,
+      String enginNumber,
+      String design,
+      String chassiNumber,
+      String pending
+      ) {
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -383,21 +309,30 @@ CollectionReference rejectedstream =
               ),
               Container(
                   //  color: Colors.blue,
+                  alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .17,
                   child: mytext(email)),
               Container(
+                  alignment: Alignment.bottomLeft,
+
                   //  color: Colors.red,
                   width: MediaQuery.of(context).size.width * .12,
                   child: mytext(userName)),
               Container(
+                  alignment: Alignment.bottomLeft,
+
                   //  color: Colors.amber,
                   width: MediaQuery.of(context).size.width * .12,
                   child: mytext(mobile)),
               Container(
                   //  color: Colors.pink,
+                  alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .15,
                   child: mytext(companyName)),
-              myButton(context, Text('Vehicle Detail'), () {}, .1, .05),
+              myButton(context, Text('Vehicle Detail'), () {
+                shwovehicleDetails(vehicleimage, enginNumber, design,
+                    chassiNumber, companyName);
+              }, .1, .05),
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   height: MediaQuery.of(context).size.height * .05,
@@ -411,14 +346,95 @@ CollectionReference rejectedstream =
                     status,
                     style: TextStyle(color: Color(0xff56C662)),
                   ))),
-              GestureDetector(
-                  onTap: () {
-                    shwoDialog(docId);
-                  },
-                  child: Icon(Icons.more_horiz_outlined))
+              Container(
+                width: MediaQuery.of(context).size.width *.02,
+                // color: Colors.amber,
+                child: pending == 'pending'
+                    ? GestureDetector(
+                        onTap: () {
+                          shwoDialog(docId);
+                        },
+                        child: Icon(Icons.more_horiz_outlined))
+                    : Container(),
+              )
             ],
           ),
           Divider()
+        ],
+      ),
+    );
+  }
+
+  shwovehicleDetails(String vehicleimage, String enginNumber, String design,
+      String chassiNumber, String companyName) async {
+    await showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+          // title: new Text('Message'),
+          content: Container(
+        width: MediaQuery.of(context).size.width * .4,
+        height: MediaQuery.of(context).size.height * .5,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * .25,
+              height: MediaQuery.of(context).size.height * .12,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image:
+                          AssetImage('asset/DashboardIcons/red_circle.png'))),
+              child: Image.asset(
+                vehicleimage,
+                scale: 4,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                detailsRow('Engine Number', enginNumber),
+                detailsRow('Car Design', design),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                detailsRow('Chaasis Number', chassiNumber),
+                detailsRow('Company Title', companyName),
+              ],
+            ),
+          ],
+        ),
+      )),
+    );
+  }
+
+  Widget detailsRow(String lable, String detail) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            lable,
+            style: TextStyle(
+                color: themeColor,
+                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.of(context).size.width * .015),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .01,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width * 0.15,
+            decoration: BoxDecoration(
+              border: Border.all(color: themeColor),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            padding:
+                EdgeInsets.only(left: MediaQuery.of(context).size.width * .01),
+            child: Align(alignment: Alignment.centerLeft, child: Text(detail)),
+          )
         ],
       ),
     );
