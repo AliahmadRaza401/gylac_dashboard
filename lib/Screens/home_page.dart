@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Screens/dashBoard.dart';
 import 'package:gylac_dashboard/Screens/drivers.dart';
+import 'package:gylac_dashboard/Screens/mobile_view.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
 import 'package:gylac_dashboard/Utils/image.dart';
 import 'package:gylac_dashboard/Utils/widget.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,7 +28,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: ResponsiveBuilder(
+    builder: (context, sizingInformation) {
+      // Check the sizing information here and return your UI
+          if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
+          return Container(
             height: double.infinity,
             width: double.infinity,
             color: themeColor,
@@ -51,10 +57,52 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ))
               ],
-            )),
+            ));
+        }
+
+        if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
+          return Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: themeColor,
+            child: Row(
+              children: [
+                Expanded(flex: 2, child: MobileSideBar()),
+                Expanded(
+                    flex: 10,
+                    child: Container(
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: MobileHeader(),
+                          ),
+                          Expanded(
+                              flex: 6,
+                              child: index==0? MobileDashBoard():DriversScreen()
+                              )
+                        ],
+                      ),
+                    ))
+              ],
+            ));
+        }
+
+        // if (sizingInformation.deviceScreenType == DeviceScreenType.watch) {
+        //   return Container(color:Colors.yellow);
+        // }
+
+        return Container(color:Colors.purple);
+      },
+    
+  )
+
       ),
     );
   }
+
+  
 int index =0;
   Widget sideBar() {
     return Container(

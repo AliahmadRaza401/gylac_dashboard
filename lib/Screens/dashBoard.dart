@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, file_names, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
