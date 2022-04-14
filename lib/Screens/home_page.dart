@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Screens/dashBoard.dart';
 import 'package:gylac_dashboard/Screens/drivers.dart';
 import 'package:gylac_dashboard/Screens/mobile_view.dart';
+import 'package:gylac_dashboard/Screens/order_details.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
 import 'package:gylac_dashboard/Utils/image.dart';
 import 'package:gylac_dashboard/Utils/widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import 'orders.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,7 +25,21 @@ class _HomePageState extends State<HomePage> {
     // getDrivers();
     super.initState();
   }
- 
+  Widget screens(){
+    if(index==2){
+   return  DashBoard();
+    }
+    if (index==1){
+   return  DriversScreen();
+    }
+    if (index==1){
+   return  Orders();
+    }
+     if(index==0){
+   return  OrderDetails();
+    }
+    return Container();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Expanded(
                               flex: 6,
-                              child: index==0? DashBoard():DriversScreen()
+                              child: screens()
                               )
                         ],
                       ),

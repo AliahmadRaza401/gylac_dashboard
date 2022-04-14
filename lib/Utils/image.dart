@@ -121,3 +121,6 @@ var level3_2="asset/level/level3_2.png";
 var level_bg="asset/level/level_bg.png";
 var level_bg_con="asset/level/level_bg_con.png";
 
+
+var sortIcon='asset/DashboardIcons/ic_sort.png';
+

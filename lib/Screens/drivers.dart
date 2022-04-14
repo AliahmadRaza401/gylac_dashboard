@@ -209,74 +209,67 @@ class _DriversScreenState extends State<DriversScreen>
     );
   }
 
-  Widget mytext(String text) {
-    return Text(
-      text,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: MediaQuery.of(context).size.width * .01),
-    );
-  }
+ 
 
-  shwoDialog(String id) async {
-    await showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        // title: new Text('Message'),
-        content: Container(
-          height: MediaQuery.of(context).size.height * .15,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  FirebaseFirestore.instance
-                      .collection('drivers')
-                      .doc(id)
-                      .update({'status': 'approved'});
-                },
-                child: Row(
-                  children: [
-                    Image.asset('asset/DashboardIcons/check-circle 1.png'),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .01,
-                    ),
-                    Text(
-                      "Approved",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .02,
-              ),
-              GestureDetector(
-                onTap: () {
-                  FirebaseFirestore.instance
-                      .collection('drivers')
-                      .doc(id)
-                      .update({'status': 'rejected'});
-                },
-                child: Row(
-                  children: [
-                    Image.asset('asset/DashboardIcons/x-circle 1.png'),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .01,
-                    ),
-                    Text(
-                      "Rejected",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // shwoDialog(String id) async {
+  //   await showDialog(
+  //     context: context,
+  //     builder: (context) => new AlertDialog(
+  //       // title: new Text('Message'),
+  //       content: Container(
+  //         height: MediaQuery.of(context).size.height * .15,
+  //         child: Column(
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //           children: [
+  //             GestureDetector(
+  //               onTap: () {
+  //                 FirebaseFirestore.instance
+  //                     .collection('drivers')
+  //                     .doc(id)
+  //                     .update({'status': 'approved'});
+  //               },
+  //               child: Row(
+  //                 children: [
+  //                   Image.asset('asset/DashboardIcons/check-circle 1.png'),
+  //                   SizedBox(
+  //                     width: MediaQuery.of(context).size.width * .01,
+  //                   ),
+  //                   Text(
+  //                     "Approved",
+  //                     style: TextStyle(fontWeight: FontWeight.bold),
+  //                   )
+  //                 ],
+  //               ),
+  //             ),
+  //             SizedBox(
+  //               height: MediaQuery.of(context).size.height * .02,
+  //             ),
+  //             GestureDetector(
+  //               onTap: () {
+  //                 FirebaseFirestore.instance
+  //                     .collection('drivers')
+  //                     .doc(id)
+  //                     .update({'status': 'rejected'});
+  //               },
+  //               child: Row(
+  //                 children: [
+  //                   Image.asset('asset/DashboardIcons/x-circle 1.png'),
+  //                   SizedBox(
+  //                     width: MediaQuery.of(context).size.width * .01,
+  //                   ),
+  //                   Text(
+  //                     "Rejected",
+  //                     style: TextStyle(fontWeight: FontWeight.bold),
+  //                   )
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget allDrivers(
       String profileImage,
@@ -305,30 +298,30 @@ class _DriversScreenState extends State<DriversScreen>
                 decoration: BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(10)),
-                child: Image.network(profileImage),
+                // child: Image.network(profileImage),
               ),
               Container(
                   //  color: Colors.blue,
                   alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .17,
-                  child: mytext(email)),
+                  child: mytext(context,email)),
               Container(
                   alignment: Alignment.bottomLeft,
 
                   //  color: Colors.red,
                   width: MediaQuery.of(context).size.width * .12,
-                  child: mytext(userName)),
+                  child: mytext(context,userName)),
               Container(
                   alignment: Alignment.bottomLeft,
 
                   //  color: Colors.amber,
                   width: MediaQuery.of(context).size.width * .12,
-                  child: mytext(mobile)),
+                  child: mytext(context,mobile)),
               Container(
                   //  color: Colors.pink,
                   alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .15,
-                  child: mytext(companyName)),
+                  child: mytext(context,companyName)),
               myButton(context, Text('Vehicle Detail'), () {
                 shwovehicleDetails(vehicleimage, enginNumber, design,
                     chassiNumber, companyName);
@@ -344,7 +337,7 @@ class _DriversScreenState extends State<DriversScreen>
                   child: Center(
                       child: Text(
                     status,
-                    style: TextStyle(color: Color(0xff56C662)),
+                    style: TextStyle(color: Color.fromARGB(255, 25, 43, 27)),
                   ))),
               Container(
                 width: MediaQuery.of(context).size.width *.02,
@@ -352,7 +345,17 @@ class _DriversScreenState extends State<DriversScreen>
                 child: pending == 'pending'
                     ? GestureDetector(
                         onTap: () {
-                          shwoDialog(docId);
+                          shwoDialog(context,docId,(){
+                            FirebaseFirestore.instance
+                      .collection('drivers')
+                      .doc(docId)
+                      .update({'status': 'approved'});
+                          },(){
+                             FirebaseFirestore.instance
+                      .collection('drivers')
+                      .doc(docId)
+                      .update({'status': 'rejected'});
+                          });
                         },
                         child: Icon(Icons.more_horiz_outlined))
                     : Container(),
