@@ -23,6 +23,37 @@ Widget iconContainer(BuildContext context, icon, bgcolor, width, height) {
       ));
 }
 
+Widget iconContainerWithtext(
+    BuildContext context, icon, text, bgcolor, fgColor, width, height) {
+  return Container(
+      width: MediaQuery.of(context).size.width * width,
+      height: MediaQuery.of(context).size.height * height,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          color: bgcolor,
+          border: Border.all(color: fgColor),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(.3),
+                offset: Offset(1, 1),
+                spreadRadius: 1,
+                blurRadius: 1)
+          ]),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon,
+            SizedBox(width: MediaQuery.of(context).size.width *.005),
+            Text(
+              text,
+              style: TextStyle(color: fgColor),
+            )
+          ],
+        ),
+      ));
+}
+
 Widget myButton(BuildContext context, btnText, VoidCallback function,
     double btnWidth, double btnHeight) {
   return Padding(
@@ -115,8 +146,13 @@ Widget myheading(BuildContext context, String text) {
                 fontSize: MediaQuery.of(context).size.width * .012,
                 fontWeight: FontWeight.bold),
           ),
-          SizedBox(width: 10,),
-          Image.asset(sortIcon,height: 13,)
+          SizedBox(
+            width: 10,
+          ),
+          Image.asset(
+            sortIcon,
+            height: 13,
+          )
         ],
       ),
     ],
@@ -137,6 +173,41 @@ Widget inputField(
               offset: Offset(0, 3),
               spreadRadius: 2,
               blurRadius: 5)
+        ]),
+    child: TextField(
+      style: TextStyle(fontSize: MediaQuery.of(context).size.width / 80),
+      keyboardType: keyboard,
+      controller: controller,
+      decoration: InputDecoration(
+          suffixIcon: icon,
+          hintText: placeholder,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 0,
+              style: BorderStyle.none,
+            ),
+          ),
+          // isDense: true,
+          contentPadding: EdgeInsets.only(left: 15, top: 20)),
+    ),
+  );
+}
+
+Widget inputFieldCircular(
+    BuildContext context, String placeholder, controller, keyboard, icon) {
+  return Container(
+    width: MediaQuery.of(context).size.width * .3,
+    height: MediaQuery.of(context).size.height * .06,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(100),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.shade200,
+              // offset: Offset(0, 0),
+              spreadRadius: 2,
+              blurRadius: 1)
         ]),
     child: TextField(
       style: TextStyle(fontSize: MediaQuery.of(context).size.width / 80),

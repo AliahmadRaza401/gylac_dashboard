@@ -123,4 +123,5 @@ var level_bg_con="asset/level/level_bg_con.png";
 
 
 var sortIcon='asset/DashboardIcons/ic_sort.png';
+var airplanIcon='asset/DashboardIcons/airplane 1.png';
 

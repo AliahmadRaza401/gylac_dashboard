@@ -51,7 +51,21 @@ class _OrdersState extends State<Orders> {
                           i++;
                           return GestureDetector(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>OrderDetails()));
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>OrderDetails(
+                                document['trackStatus'], 
+                                document['deliveryPhone'], 
+                                document['deliveryAddress'], 
+                                document['deliveryName'], 
+                                document['pickupName'], 
+                                document['duration'],  
+                                document['tracking'],  
+                                document['pickupLong'],  
+                                document['pickupLat'],  
+                                document['pickupParcelDesc'],  
+                                document['orderId'],  
+                                document['pickupParcelName'],  
+                                document['pickupDeliveryPrice'],  
+                                )));
                               // showOrderDetails(
                               //   context,
                               //   document['orderId'],

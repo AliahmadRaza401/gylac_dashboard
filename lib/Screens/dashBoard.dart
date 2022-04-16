@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, file_names, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, file_names, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
 import '../Utils/widget.dart';
@@ -13,6 +14,133 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  int totalCustomers = 0;
+  int pendingOrders = 0;
+  int deliverdOrders = 0;
+  int activedOrders = 0;
+  int canceledOrders = 0;
+  int totalDrivers=0;
+  int activeDrivers=0;
+  int pendingDrivers=0;
+  int rejectedDrivers=0;
+  @override
+  void initState() {
+    super.initState();
+    getCount();
+  }
+
+  Future getCount() async {
+    FirebaseFirestore.instance
+        .collection('orders') //your collectionref
+        .where('orderStatus', isEqualTo: 'pending')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        pendingOrders = count;
+      });
+    });
+    FirebaseFirestore.instance
+        .collection('orders') //your collectionref
+        .where('orderStatus', isEqualTo: 'completed')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        deliverdOrders = count;
+      });
+    });
+    FirebaseFirestore.instance
+        .collection('orders') //your collectionref
+        .where('orderStatus', isEqualTo: 'canceled')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        canceledOrders = count;
+      });
+    });
+    FirebaseFirestore.instance
+        .collection('orders') //your collectionref
+        .where('orderStatus', isEqualTo: 'active')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        activedOrders = count;
+      });
+    });
+
+    FirebaseFirestore.instance
+        .collection('drivers') //your collectionref
+        // .where('status', isEqualTo: 'active')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        totalDrivers = count;
+      });
+    });
+      FirebaseFirestore.instance
+        .collection('drivers') //your collectionref
+        .where('status', isEqualTo: 'pending')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        pendingDrivers = count;
+      });
+    });
+
+      FirebaseFirestore.instance
+        .collection('drivers') //your collectionref
+        .where('status', isEqualTo: 'rejected')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        rejectedDrivers = count;
+      });
+    });
+  
+
+    FirebaseFirestore.instance
+        .collection('drivers') //your collectionref
+        .where('status', isEqualTo: 'active')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        activeDrivers = count;
+      });
+    });
+
+    
+
+    FirebaseFirestore.instance
+        .collection('users') //your collectionref
+        // .where('deleted', isEqualTo: false)
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        totalCustomers = count;
+      });
+    });
+
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,17 +230,17 @@ class _DashBoardState extends State<DashBoard> {
                 DashboardStatCard(
                     bgcolor: greencolor,
                     title: 'Delivered Ordes',
-                    value: '459',
+                    value: '$deliverdOrders',
                     image: 'asset/DashboardIcons/deliverd.png'),
                 DashboardStatCard(
                     bgcolor: deeporangecolor,
                     title: 'Pending Orders',
-                    value: '247',
+                    value: '$pendingOrders',
                     image: 'asset/DashboardIcons/pendin.png'),
                 DashboardStatCard(
                     bgcolor: themeColor,
                     title: 'Customers',
-                    value: '872',
+                    value: '$totalCustomers',
                     image: 'asset/DashboardIcons/customers.png'),
               ],
             ),
@@ -126,13 +254,13 @@ class _DashBoardState extends State<DashBoard> {
                     bgcolor: white,
                     title: 'Orders Details',
                     text1: 'Active Orders',
-                    value1: '1148',
+                    value1: '$activedOrders',
                     text2: 'Pending Orders',
-                    value2: '200',
+                    value2: '$pendingOrders',
                     text3: 'Delivered Orders',
-                    value3: '865',
+                    value3: '$deliverdOrders',
                     text4: 'Cancelled Orders',
-                    value4: '67',
+                    value4: '$canceledOrders',
                     progess1: 20,
                     totalprogress1: 100,
                     progess2: 50,
@@ -145,7 +273,7 @@ class _DashBoardState extends State<DashBoard> {
                     bgcolor: white,
                     title: 'Customers Details',
                     text1: 'Total Customers',
-                    value1: '865',
+                    value1: '$totalCustomers',
                     text2: 'Active Customers',
                     value2: '67',
                     text3: 'Delivered Customers',
@@ -179,13 +307,13 @@ class _DashBoardState extends State<DashBoard> {
                     bgcolor: white,
                     title: 'Drivers Details',
                     text1: 'Total Drivers',
-                    value1: '865',
+                    value1: '$totalDrivers',
                     text2: 'Active Drivers',
-                    value2: '67',
+                    value2: '$activeDrivers',
                     text3: 'Pending Drivers',
-                    value3: '865',
+                    value3: '$pendingDrivers',
                     text4: 'Deactive Drivers',
-                    value4: '67',
+                    value4: '$rejectedDrivers',
                     progess1: 20,
                     totalprogress1: 100,
                     progess2: 50,

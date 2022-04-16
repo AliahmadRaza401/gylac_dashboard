@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Screens/dashBoard.dart';
 import 'package:gylac_dashboard/Screens/drivers.dart';
 import 'package:gylac_dashboard/Screens/mobile_view.dart';
-import 'package:gylac_dashboard/Screens/order_details.dart';
+import 'package:gylac_dashboard/Screens/reviews_screen.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
 import 'package:gylac_dashboard/Utils/image.dart';
 import 'package:gylac_dashboard/Utils/widget.dart';
@@ -26,17 +26,17 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
   Widget screens(){
-    if(index==2){
+    if(index==3){
    return  DashBoard();
     }
     if (index==1){
    return  DriversScreen();
     }
-    if (index==1){
+    if (index==2){
    return  Orders();
     }
      if(index==0){
-   return  OrderDetails();
+   return  ReviewsScreen();
     }
     return Container();
   }
