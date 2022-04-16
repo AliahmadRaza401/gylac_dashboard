@@ -112,8 +112,8 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                               .map((DocumentSnapshot document) {
                             return reviewRow(
                               document['orderId'],
-                              document['driverId'],
-                              '02-02-2022 08:23:00',
+                              document['driverName'],
+                              document['reviewDate'].toString(),
                               document['feedback'],
                               double.parse(document['rating']),
                             );

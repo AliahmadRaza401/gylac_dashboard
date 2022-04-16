@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
   Widget screens(){
-    if(index==3){
+    if(index==0){
    return  DashBoard();
     }
     if (index==1){
@@ -35,10 +35,10 @@ class _HomePageState extends State<HomePage> {
     if (index==2){
    return  Orders();
     }
-     if(index==0){
+     if(index==3){
    return  ReviewsScreen();
     }
-    return Container();
+    return DashBoard();
   }
 
   @override
