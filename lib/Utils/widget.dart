@@ -76,6 +76,7 @@ Widget myButton(BuildContext context, btnText, VoidCallback function,
 shwoDialog(BuildContext context, String id, VoidCallback approvedFunction,
     VoidCallback rejectFunction) async {
   await showDialog(
+    
     context: context,
     builder: (context) => new AlertDialog(
       // title: new Text('Message'),

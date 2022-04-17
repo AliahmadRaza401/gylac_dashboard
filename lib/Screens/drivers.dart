@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_new, sized_box_for_whitespace, prefer_is_empty, avoid_unnecessary_containers
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
@@ -209,8 +210,6 @@ class _DriversScreenState extends State<DriversScreen>
     );
   }
 
- 
-
   // shwoDialog(String id) async {
   //   await showDialog(
   //     context: context,
@@ -277,14 +276,13 @@ class _DriversScreenState extends State<DriversScreen>
       String userName,
       String mobile,
       String companyName,
-     String status,
+      String status,
       String docId,
       String vehicleimage,
       String enginNumber,
       String design,
       String chassiNumber,
-      String pending
-      ) {
+      String pending) {
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -304,24 +302,24 @@ class _DriversScreenState extends State<DriversScreen>
                   //  color: Colors.blue,
                   alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .17,
-                  child: mytext(context,email)),
+                  child: mytext(context, email)),
               Container(
                   alignment: Alignment.bottomLeft,
 
                   //  color: Colors.red,
                   width: MediaQuery.of(context).size.width * .12,
-                  child: mytext(context,userName)),
+                  child: mytext(context, userName)),
               Container(
                   alignment: Alignment.bottomLeft,
 
                   //  color: Colors.amber,
                   width: MediaQuery.of(context).size.width * .12,
-                  child: mytext(context,mobile)),
+                  child: mytext(context, mobile)),
               Container(
                   //  color: Colors.pink,
                   alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .15,
-                  child: mytext(context,companyName)),
+                  child: mytext(context, companyName)),
               myButton(context, Text('Vehicle Detail'), () {
                 shwovehicleDetails(vehicleimage, enginNumber, design,
                     chassiNumber, companyName);
@@ -340,21 +338,25 @@ class _DriversScreenState extends State<DriversScreen>
                     style: TextStyle(color: Color.fromARGB(255, 25, 43, 27)),
                   ))),
               Container(
-                width: MediaQuery.of(context).size.width *.02,
+                width: MediaQuery.of(context).size.width * .02,
                 // color: Colors.amber,
                 child: pending == 'pending'
                     ? GestureDetector(
                         onTap: () {
-                          shwoDialog(context,docId,(){
+                          shwoDialog(context, docId, () {
                             FirebaseFirestore.instance
-                      .collection('drivers')
-                      .doc(docId)
-                      .update({'status': 'approved'});
-                          },(){
-                             FirebaseFirestore.instance
-                      .collection('drivers')
-                      .doc(docId)
-                      .update({'status': 'rejected'});
+                                .collection('drivers')
+                                .doc(docId)
+                                .update({'status': 'approved'}).then((value) {
+                              Navigator.of(context).pop();
+                            });
+                          }, () {
+                            FirebaseFirestore.instance
+                                .collection('drivers')
+                                .doc(docId)
+                                .update({'status': 'rejected'}).then((value) {
+                              Navigator.of(context).pop();
+                            });
                           });
                         },
                         child: Icon(Icons.more_horiz_outlined))
@@ -387,9 +389,9 @@ class _DriversScreenState extends State<DriversScreen>
                   image: DecorationImage(
                       image:
                           AssetImage('asset/DashboardIcons/red_circle.png'))),
-              child: Image.asset(
-                vehicleimage,
-                scale: 4,
+              child: CachedNetworkImage(
+                imageUrl: vehicleimage,
+                // scale: 4,
               ),
             ),
             Row(
@@ -422,7 +424,7 @@ class _DriversScreenState extends State<DriversScreen>
             style: TextStyle(
                 color: themeColor,
                 fontWeight: FontWeight.bold,
-                fontSize: MediaQuery.of(context).size.width * .015),
+                fontSize: MediaQuery.of(context).size.width * .01),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * .01,

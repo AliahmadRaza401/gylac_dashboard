@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, body_might_complete_normally_nullable
 
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Screens/home_page.dart';
@@ -16,14 +15,16 @@ class _LoginScreenState extends State<LoginScreen> {
   bool visible = false;
   TextEditingController email = TextEditingController(text: 'admin');
   TextEditingController password = TextEditingController(text: 'admin');
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          image:DecorationImage(image: AssetImage('asset/DashboardIcons/Template-banner-of-car-pick-up-and-drop-service-06-large.jpg'),fit: BoxFit.cover)
-        ),
+            image: DecorationImage(
+                image: AssetImage(
+                    'asset/DashboardIcons/Template-banner-of-car-pick-up-and-drop-service-06-large.jpg'),
+                fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -123,17 +124,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => HomePage()));
                         } else {
-                           showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                              content: Container(
-                                height: MediaQuery.of(context).size.height *.1,
-                                child: Center(child: Text('Invalid email or password'),),
-                              ),
-                              );
-                            });
-                        }
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height * .1,
+                                    child: Center(
+                                      child: Text('Invalid email or password'),
+                                    ),
+                                  ),
+                                );
+                              });
+                            }
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Color(0xffFF8A00),
@@ -228,7 +232,6 @@ class _LoginScreenState extends State<LoginScreen> {
             labelText: 'password',
             suffixIcon: IconButton(
                 onPressed: () {
-                  print("hy");
                   setState(() {
                     visible = !visible;
                   });

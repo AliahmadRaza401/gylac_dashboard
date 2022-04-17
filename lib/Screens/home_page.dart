@@ -26,19 +26,21 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
   Widget screens(){
-    if(index==0){
+    if(selectedIndex==0){
    return  DashBoard();
     }
-    if (index==1){
+    if (selectedIndex==1){
    return  DriversScreen();
     }
-    if (index==2){
+    if (selectedIndex==2){
    return  Orders();
     }
-     if(index==3){
+     if(selectedIndex==3){
    return  ReviewsScreen();
     }
-    return DashBoard();
+    return Center(
+      child: Text('Comming soon'),
+    );
   }
 
   @override
@@ -157,37 +159,41 @@ int index =0;
               child: Container(
             width: double.infinity,
             color: Colors.black,
-            child: Column(
-              children: [
-                iconDashboard('asset/DashboardIcons/profile.png',0),
-                iconDashboard('asset/DashboardIcons/Group.png',1),
-                iconDashboard('asset/DashboardIcons/profileGroup.png',2),
-                iconDashboard('asset/DashboardIcons/notifications.png',3),
-                iconDashboard('asset/DashboardIcons/doc.png',4),
-                iconDashboard('asset/DashboardIcons/document.png',5),
-                iconDashboard('asset/DashboardIcons/pinloction.png',6),
-                iconDashboard('asset/DashboardIcons/setting.png',7),
-              ],
-            ),
+            child: ListView.builder(
+              itemCount: sideItems.length,
+              itemBuilder: (context,index){
+               return GestureDetector(
+                 onTap: (){
+                   setState(() {
+                     selectedIndex=index;
+                   });
+                 },
+                 child: iconDashboard(sideItems[index]['icon'], selectedIndex==index?sideItems[index]['activeColor']:sideItems[index]['incativeColor']));
+              })
+           
           ))
         ],
       ),
     );
   }
-
-  Widget iconDashboard(String img,int selectedIndex) {
-    return GestureDetector(
-      onTap: (){
-         setState(() {
-                    index=selectedIndex;
-                  });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        child: Image.asset(
-          img,
-          height: MediaQuery.of(context).size.height * .03,
-        ),
+  int selectedIndex=0;
+  List sideItems=[
+    {'icon':'asset/DashboardIcons/profile.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    {'icon':'asset/DashboardIcons/Group.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    {'icon':'asset/DashboardIcons/profileGroup.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    {'icon':'asset/DashboardIcons/notifications.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    {'icon':'asset/DashboardIcons/doc.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    {'icon':'asset/DashboardIcons/document.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    {'icon':'asset/DashboardIcons/pinloction.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    {'icon':'asset/DashboardIcons/setting.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    ];
+  Widget iconDashboard(String img,color ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Image.asset(
+        img,
+        height: MediaQuery.of(context).size.height * .03,
+        color:color,
       ),
     );
   }
