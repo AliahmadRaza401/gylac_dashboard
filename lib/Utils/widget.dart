@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
-import 'package:gylac_dashboard/Utils/image.dart';
 
 Widget iconContainer(BuildContext context, icon, bgcolor, width, height) {
   return Container(
@@ -245,11 +244,16 @@ Widget inputFieldCircular(
               blurRadius: 1)
         ]),
     child: TextField(
+      
       style: TextStyle(fontSize: MediaQuery.of(context).size.width / 80),
       keyboardType: keyboard,
+      
       controller: controller,
       decoration: InputDecoration(
-          suffixIcon: icon,
+         
+          suffixIcon: Padding(
+            padding:EdgeInsets.only(right: 15) ,
+            child: icon),
           hintText: placeholder,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -259,7 +263,7 @@ Widget inputFieldCircular(
             ),
           ),
           // isDense: true,
-          contentPadding: EdgeInsets.only(left: 15, top: 20)),
+          contentPadding: EdgeInsets.only(left: 15, top: 35)),
     ),
   );
 }

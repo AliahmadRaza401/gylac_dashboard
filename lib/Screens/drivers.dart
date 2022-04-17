@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
+import 'package:gylac_dashboard/Utils/image.dart';
 import 'package:gylac_dashboard/Utils/widget.dart';
 
 class DriversScreen extends StatefulWidget {
@@ -389,9 +390,11 @@ class _DriversScreenState extends State<DriversScreen>
                   image: DecorationImage(
                       image:
                           AssetImage('asset/DashboardIcons/red_circle.png'))),
-              child: CachedNetworkImage(
-                imageUrl: vehicleimage,
-                // scale: 4,
+              child:
+               FadeInImage(image: NetworkImage(vehicleimage), placeholder: AssetImage('asset/car.png')
+              // CachedNetworkImage(
+              //   imageUrl: vehicleimage,
+              //   // scale: 4,
               ),
             ),
             Row(

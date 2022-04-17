@@ -21,6 +21,55 @@ class _OrdersState extends State<Orders> {
     return Scaffold(
       body: Column(
         children: [
+           Padding(
+            padding: const EdgeInsets.only(left: 15,top: 30),
+            child: Row(
+              children: [
+                Text(
+                  'Order Page List',
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * .035,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                inputFieldCircular(
+                    context, 'Search here', null, null, Icon(Icons.search)),
+                Spacer(
+                  flex: 10,
+                ),
+                iconContainerWithdoubleIcon(
+                    context,
+                    Image.asset('asset/DashboardIcons/filter.png'),
+                    'Filter',
+                    Colors.white,
+                    Colors.black,
+                    .08,
+                    .06,
+                    Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      color: Colors.deepOrange,
+                    )),
+                Spacer(
+                  flex: 1,
+                ),
+                Image.asset(
+                  'asset/DashboardIcons/refreshs.png',
+                  width: MediaQuery.of(context).size.width * .03,
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+              ],
+            ),
+          ),
           headingRow('Order ID', 'Date', 'Customer Name', 'Location', 'Amount',
               'Status Order'),
           Expanded(
@@ -51,21 +100,22 @@ class _OrdersState extends State<Orders> {
                           i++;
                           return GestureDetector(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>OrderDetails(
-                                document['trackStatus'], 
-                                document['deliveryPhone'], 
-                                document['deliveryAddress'], 
-                                document['deliveryName'], 
-                                document['pickupName'], 
-                                document['duration'],  
-                                document['tracking'],  
-                                document['pickupLong'],  
-                                document['pickupLat'],  
-                                document['pickupParcelDesc'],  
-                                document['orderId'],  
-                                document['pickupParcelName'],  
-                                document['pickupDeliveryPrice'],  
-                                )));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => OrderDetails(
+                                        document['trackStatus'],
+                                        document['deliveryPhone'],
+                                        document['deliveryAddress'],
+                                        document['deliveryName'],
+                                        document['pickupName'],
+                                        document['duration'],
+                                        document['tracking'],
+                                        document['pickupLong'],
+                                        document['pickupLat'],
+                                        document['pickupParcelDesc'],
+                                        document['orderId'],
+                                        document['pickupParcelName'],
+                                        document['pickupDeliveryPrice'],
+                                      )));
                               // showOrderDetails(
                               //   context,
                               //   document['orderId'],
@@ -147,7 +197,7 @@ class _OrdersState extends State<Orders> {
   //                 Step(title:Text('data'), content: Container()),
   //               ])
   //               // ImageStepper(
-        
+
   //               //   images: [
   //               //     AssetImage(mini_truck),
   //               //     AssetImage(truck),
@@ -192,7 +242,7 @@ class _OrdersState extends State<Orders> {
   //                 ],)
   //               ],
   //             ),
-             
+
   //           ],
   //         ),
   //       ),
@@ -213,11 +263,12 @@ class _OrdersState extends State<Orders> {
   Widget ordersRow(number, String orderId, String date, String customerName,
       String location, String amount, String docId, String pending) {
     return Container(
-      height: MediaQuery.of(context).size.height *.13,
+      // height: MediaQuery.of(context).size.height *.13,
       color: Colors.transparent,
       padding: EdgeInsets.all(20),
       child: Column(
         children: [
+         
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

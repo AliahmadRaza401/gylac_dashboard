@@ -66,14 +66,18 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                       .06),
                   Spacer(flex: 1,),
 
-                  iconContainerWithtext(
-                      context,
-                      Image.asset('asset/DashboardIcons/filter.png'),
-                      'Filter',
-                      Colors.white,
-                      Colors.black,
-                      .08,
-                      .06),
+                   iconContainerWithdoubleIcon(
+                    context,
+                    Image.asset('asset/DashboardIcons/filter.png'),
+                    'Filter',
+                    Colors.white,
+                    Colors.black,
+                    .08,
+                    .06,
+                    Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      color: Colors.deepOrange,
+                    )),
                   Spacer(flex: 1,),
 
                   Image.asset(
@@ -275,7 +279,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                             Padding(
                               padding: const EdgeInsets.only(right: 30),
                               child: Image.asset(
-                                  'asset/DashboardIcons/Vector.png',height: MediaQuery.of(context).size.height *.035,),
+                                  'asset/DashboardIcons/Vector.png',height: MediaQuery.of(context).size.height *.025,),
                             ),
                             SizedBox(
                               width: 20,

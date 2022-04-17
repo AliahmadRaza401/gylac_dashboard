@@ -135,26 +135,7 @@ int index =0;
             width: double.infinity,
             height: MediaQuery.of(context).size.height * .2,
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * .1,
-            color: themeColor,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('asset/DashboardIcons/ic_dashboard.png',
-                      height: MediaQuery.of(context).size.height * .03),
-                  Text(
-                    'Dashboard',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: purpleDashboard,
-                        fontSize: MediaQuery.of(context).size.width * .01),
-                  )
-                ],
-              ),
-            ),
-          ),
+         
           Expanded(
               child: Container(
             width: double.infinity,
@@ -168,7 +149,14 @@ int index =0;
                      selectedIndex=index;
                    });
                  },
-                 child: iconDashboard(sideItems[index]['icon'], selectedIndex==index?sideItems[index]['activeColor']:sideItems[index]['incativeColor']));
+                 child: dashboardSelection(
+                  sideItems[index]['icon'],
+                  selectedIndex==index?sideItems[index]['activeColor']:sideItems[index]['incativeColor'],
+                  selectedIndex==index?sideItems[index]['text']:'',
+                  selectedIndex==index?sideItems[index]['bgActive']:sideItems[index]['bgInactive'],
+                  )
+                  // iconDashboard(sideItems[index]['icon'], selectedIndex==index?sideItems[index]['activeColor']:sideItems[index]['incativeColor'])
+                  );
               })
            
           ))
@@ -178,15 +166,43 @@ int index =0;
   }
   int selectedIndex=0;
   List sideItems=[
-    {'icon':'asset/DashboardIcons/profile.png','activeColor':Colors.amber,'incativeColor':Colors.white},
-    {'icon':'asset/DashboardIcons/Group.png','activeColor':Colors.amber,'incativeColor':Colors.white},
-    {'icon':'asset/DashboardIcons/profileGroup.png','activeColor':Colors.amber,'incativeColor':Colors.white},
-    {'icon':'asset/DashboardIcons/notifications.png','activeColor':Colors.amber,'incativeColor':Colors.white},
-    {'icon':'asset/DashboardIcons/doc.png','activeColor':Colors.amber,'incativeColor':Colors.white},
-    {'icon':'asset/DashboardIcons/document.png','activeColor':Colors.amber,'incativeColor':Colors.white},
-    {'icon':'asset/DashboardIcons/pinloction.png','activeColor':Colors.amber,'incativeColor':Colors.white},
-    {'icon':'asset/DashboardIcons/setting.png','activeColor':Colors.amber,'incativeColor':Colors.white},
+    {'icon':'asset/DashboardIcons/ic_dashboard.png','text':'Dashboard','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
+    {'icon':'asset/DashboardIcons/profile.png','text':'Users','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
+    {'icon':'asset/DashboardIcons/Group.png','text':'Orders','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
+    {'icon':'asset/DashboardIcons/profileGroup.png','text':'Reviews','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
+    {'icon':'asset/DashboardIcons/notifications.png','text':'Notifications','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
+    {'icon':'asset/DashboardIcons/doc.png','text':'Docs','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
+    {'icon':'asset/DashboardIcons/document.png','text':'Document','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
+    {'icon':'asset/DashboardIcons/pinloction.png','text':'PinLocation','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
+    {'icon':'asset/DashboardIcons/setting.png','text':'Settings','activeColor':purpleDashboard,'incativeColor':Colors.white,'bgInactive':Colors.transparent,'bgActive':themeColor},
     ];
+
+  dashboardSelection(image,imagecolor,text,bgColor){
+    return  Container(
+            height: MediaQuery.of(context).size.height * .1,
+            color: bgColor,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(image,
+                      height: MediaQuery.of(context).size.height * .03,
+                      color:imagecolor
+                      ),
+                  Text(
+                    text,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: purpleDashboard,
+                        fontSize: MediaQuery.of(context).size.width * .01,
+                        ),
+                  )
+                ],
+              ),
+            ),
+          );
+  }
+  
   Widget iconDashboard(String img,color ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
