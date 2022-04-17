@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, deprecated_member_use, must_be_immutable, use_key_in_widget_constructors
 
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gylac_dashboard/Screens/loc_map.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
 import 'package:gylac_dashboard/Utils/image.dart';
+import 'package:gylac_dashboard/Utils/widget.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -23,7 +26,20 @@ class OrderDetails extends StatefulWidget {
   String parcelName;
   String parcelPricce;
 
-  OrderDetails(this.trackStatus,this.custimerMobile,this.customerAddress,this.customerName,this.deliveryGuy, this.estimatedTime,this.guyId,this.lang,this.lat,this.noteOrder,this.orderId,this.parcelName,this.parcelPricce) ;
+  OrderDetails(
+      this.trackStatus,
+      this.custimerMobile,
+      this.customerAddress,
+      this.customerName,
+      this.deliveryGuy,
+      this.estimatedTime,
+      this.guyId,
+      this.lang,
+      this.lat,
+      this.noteOrder,
+      this.orderId,
+      this.parcelName,
+      this.parcelPricce);
 
   @override
   State<OrderDetails> createState() => _OrderDetailsState();
@@ -40,7 +56,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   bool step4 = false;
   bool step5 = false;
-  
+
   // getUpdate() async{
   //   firebaseFirestore
   //       .collection("orders")
@@ -89,12 +105,92 @@ class _OrderDetailsState extends State<OrderDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              height: MediaQuery.of(context).size.height * .15,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border:
+                      Border(bottom: BorderSide(color: Colors.grey.shade300))),
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.grey,
+                          size: MediaQuery.of(context).size.height * .05,
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: inputFieldCircular(
+                        context, 'Search here', null, null, Icon(Icons.search)),
+                  ),
+                  Spacer(
+                    flex: 10,
+                  ),
+                  iconContainerWithtext(context, Text(''), 'Recipe Guide',
+                      Colors.deepOrange, Colors.white, .08, .06),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Icon(Icons.notifications_outlined, color: Colors.grey),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Icon(
+                    Icons.chat,
+                    color: Colors.grey,
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  VerticalDivider(
+                    indent: MediaQuery.of(context).size.height * .03,
+                    endIndent: MediaQuery.of(context).size.height * .03,
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: orangeColros,
+                    radius: MediaQuery.of(context).size.height * .03,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      radius: MediaQuery.of(context).size.height * .027,
+                    ),
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  iconContainerWithdoubleIcon(
+                      context,
+                      Image.asset('asset/DashboardIcons/united-states 1.png'),
+                      'English',
+                      Colors.deepOrange.shade50,
+                      Colors.black,
+                      .08,
+                      .06,
+                      Icon(Icons.keyboard_arrow_down_rounded,
+                          color: Colors.deepOrange)),
+                  Spacer(
+                    flex: 1,
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10, bottom: 10, top: 40),
               child: Row(
                 children: [
                   Text(
-                   'Order ID #'+ widget.orderId,
+                    'Order ID #' + widget.orderId,
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * .02,
                         fontWeight: FontWeight.bold),
@@ -104,7 +200,7 @@ class _OrderDetailsState extends State<OrderDetails> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  top: 10, bottom: 10, right: 50, left: 10),
+                  top: 10, bottom: 10, right: 20, left: 10),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * .2,
@@ -125,279 +221,303 @@ class _OrderDetailsState extends State<OrderDetails> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Expanded(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * .65,
-                          height: MediaQuery.of(context).size.height * .4,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.shade200,
-                                    offset: Offset(2, 2),
-                                    spreadRadius: 1,
-                                    blurRadius: 3)
-                              ]),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * .61,
-                                    height: MediaQuery.of(context).size.height *
-                                        .32,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.grey.shade200,
-                                              offset: Offset(2, 2),
-                                              spreadRadius: 1,
-                                              blurRadius: 3)
-                                        ]),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: MarkersPage(lat: double.parse(widget.lat),lang: double.parse(widget.lang),))),
-                              ),
-                            ],
+                Expanded(
+                  flex: 5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Expanded(
+                          // flex: 2,
+                          child: Container(
+                            // width: MediaQuery.of(context).size.width * .65,
+                            height: MediaQuery.of(context).size.height * .4,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.shade200,
+                                      offset: Offset(2, 2),
+                                      spreadRadius: 1,
+                                      blurRadius: 3)
+                                ]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 25),
+                                  child: Container(
+                                      // width:
+                                      //     MediaQuery.of(context).size.width ,
+                                      height: MediaQuery.of(context).size.height *
+                                          .32,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.grey.shade200,
+                                                offset: Offset(2, 2),
+                                                spreadRadius: 1,
+                                                blurRadius: 3)
+                                          ]),
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: MarkersPage(
+                                            lat: double.parse(widget.lat),
+                                            lang: double.parse(widget.lang),
+                                          ))),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * .385,
-                            height: MediaQuery.of(context).size.height * .15,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.shade200,
-                                      offset: Offset(2, 2),
-                                      spreadRadius: 1,
-                                      blurRadius: 3)
-                                ]),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          .05,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .1,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.shade200,
-                                              // offset: Offset(2, 2),
-                                              // spreadRadius: 1,
-                                              // blurRadius: 3
-                                            )
-                                          ]),
-                                    )),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Delivery guy',
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .018,
-                                          color: Colors.black),
-                                    ),
-                                    Text(
-                                      widget.deliveryGuy,
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .025,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                    Text(
-                                      'ID '+widget.orderId,
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .025,
-                                          color: orangeColros),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                  ],
-                                ),
-                                Spacer(),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        CircleAvatar(
-                                          child: Icon(
-                                            Icons.chat,
-                                            size: MediaQuery.of(context)
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * .435,
+                              height: MediaQuery.of(context).size.height * .15,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.grey.shade200,
+                                        offset: Offset(2, 2),
+                                        spreadRadius: 1,
+                                        blurRadius: 3)
+                                  ]),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width *
+                                            .05,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                .1,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey.shade200,
+                                                // offset: Offset(2, 2),
+                                                // spreadRadius: 1,
+                                                // blurRadius: 3
+                                              )
+                                            ]),
+                                      )),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Delivery guy',
+                                        style: TextStyle(
+                                            fontSize: MediaQuery.of(context)
                                                     .size
-                                                    .width *
-                                                .015,
+                                                    .height *
+                                                .018,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        widget.deliveryGuy,
+                                        style: TextStyle(
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .025,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        'ID ' + widget.orderId,
+                                        style: TextStyle(
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .025,
+                                            color: orangeColros),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          CircleAvatar(
+                                            child: Icon(
+                                              Icons.chat,
+                                              size: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .015,
+                                            ),
+                                            backgroundColor: orangeColros,
                                           ),
-                                          backgroundColor: orangeColros,
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          CircleAvatar(
+                                            child: Icon(
+                                              Icons.call,
+                                              size: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .015,
+                                            ),
+                                            backgroundColor: orangeColros,
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Expanded(
+                              flex:2,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * .25,
+                                height: MediaQuery.of(context).size.height * .15,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.grey.shade200,
+                                          offset: Offset(2, 2),
+                                          spreadRadius: 1,
+                                          blurRadius: 3)
+                                    ]),
+                                padding: EdgeInsets.all(10),
+                                child: Row(
+                                  children: [
+                                    Image.asset(airplanIcon),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width * .015,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Estimated Time',
+                                          style: TextStyle(
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .018,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          widget.estimatedTime,
+                                          style: TextStyle(
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .025,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
                                         ),
                                         SizedBox(
-                                          width: 20,
-                                        ),
-                                        CircleAvatar(
-                                          child: Icon(
-                                            Icons.call,
-                                            size: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .015,
-                                          ),
-                                          backgroundColor: orangeColros,
+                                          height: 5,
                                         ),
                                       ],
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * .25,
-                            height: MediaQuery.of(context).size.height * .15,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.shade200,
-                                      offset: Offset(2, 2),
-                                      spreadRadius: 1,
-                                      blurRadius: 3)
-                                ]),
-                            padding: EdgeInsets.all(10),
-                            child: Row(
-                              children: [
-                                Image.asset(airplanIcon),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * .015,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Estimated Time',
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .018,
-                                          color: Colors.black),
-                                    ),
-                                    Text(
-                                      widget.estimatedTime,
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .025,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
                                     ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            // padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                            width: MediaQuery.of(context).size.width * .65,
-                            height: MediaQuery.of(context).size.height * .6,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.shade200,
-                                      offset: Offset(2, 2),
-                                      spreadRadius: 1,
-                                      blurRadius: 3)
-                                ]),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            child: Column(
-                              children: [
-                                headingsRow(),
-                                itemsRow('mainCourse', widget.parcelName, 4.5,
-                                    223, '1',widget.parcelPricce, widget.parcelPricce),
-                                 itemsRow('mainCourse', widget.parcelName, 4.5,
-                                    223, '1',widget.parcelPricce, widget.parcelPricce),
-                               
-                              ],
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              // padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+                              width: MediaQuery.of(context).size.width *.7,
+                              height: MediaQuery.of(context).size.height * .6,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.grey.shade200,
+                                        offset: Offset(2, 2),
+                                        spreadRadius: 1,
+                                        blurRadius: 3)
+                                  ]),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              child: Column(
+                                children: [
+                                  headingsRow(),
+                                  itemsRow(
+                                      'mainCourse',
+                                      widget.parcelName,
+                                      4.5,
+                                      223,
+                                      '1',
+                                      widget.parcelPricce,
+                                      widget.parcelPricce),
+                                  itemsRow(
+                                      'mainCourse',
+                                      widget.parcelName,
+                                      4.5,
+                                      223,
+                                      '1',
+                                      widget.parcelPricce,
+                                      widget.parcelPricce),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // SizedBox(
-                    //   height: MediaQuery.of(context).size.height * .1,
-                    // )
-                  ],
+                        ],
+                      ),
+                      // SizedBox(
+                      //   height: MediaQuery.of(context).size.height * .1,
+                      // )
+                    ],
+                  ),
                 ),
-                Column(
-                  children: [infoContainer(), percentageContainer()],
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: [infoContainer(), percentageContainer()],
+                  ),
                 )
               ],
             ),
@@ -434,10 +554,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                     ),
                   ],
                 ),
-                 Text(
+                Text(
                   "Waiting For Acceptance",
                   style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height *.018,
+                      fontSize: MediaQuery.of(context).size.height * .018,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold),
                 )
@@ -465,8 +585,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                 ),
                 Text(
                   "driverName accept your Request",
-                  style:  TextStyle(
-                          fontSize: MediaQuery.of(context).size.height *.018,
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * .018,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold),
                 ),
@@ -499,7 +619,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 Text(
                   "Waiting for Pickup",
                   style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height *.018,
+                      fontSize: MediaQuery.of(context).size.height * .018,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
@@ -534,7 +654,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     Text(
                       "Parcel Picked up",
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height *.018,
+                          fontSize: MediaQuery.of(context).size.height * .018,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
                           color: step4 == false ? Colors.grey : Colors.black),
@@ -561,7 +681,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     Text(
                       "Delivered Location",
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height *.018,
+                          fontSize: MediaQuery.of(context).size.height * .018,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
                           color: step5 == false ? Colors.grey : Colors.black),
@@ -577,151 +697,154 @@ class _OrderDetailsState extends State<OrderDetails> {
   }
 
   Widget infoContainer() {
-    return Container(
-      width: MediaQuery.of(context).size.width * .2,
-      height: MediaQuery.of(context).size.height * .6,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.shade200,
-                offset: Offset(2, 2),
-                spreadRadius: 1,
-                blurRadius: 3)
-          ]),
-      padding: EdgeInsets.all(20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * .05,
-                height: MediaQuery.of(context).size.height * .1,
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade200,
-                        // offset: Offset(2, 2),
-                        // spreadRadius: 1,
-                        // blurRadius: 3
-                      )
-                    ]),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                widget.customerName,
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height * .025,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * .05,
-                  width: MediaQuery.of(context).size.width * .08,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Customer'),
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100)),
-                        primary: orangeColros),
-                  )),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              CircleAvatar(
-                child: Icon(
-                  Icons.call,
-                  size: MediaQuery.of(context).size.width * .015,
-                ),
-                backgroundColor: purpleColros,
-              ),
-              Container(
-                color: Colors.white,
-                width: MediaQuery.of(context).size.width * .1,
-                child: Text(
-                  widget.custimerMobile,
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * .022,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              CircleAvatar(
-                child: Icon(
-                  Icons.location_on,
-                  size: MediaQuery.of(context).size.width * .015,
-                ),
-                backgroundColor: purpleColros,
-              ),
-              Container(
-                color: Colors.white,
-                width: MediaQuery.of(context).size.width * .1,
-                child: Text(
-                  widget.customerAddress,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * .022,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-            ],
-          ),
-          Divider(),
-          Text(
-            'Note Order',
-            style: TextStyle(
-                fontSize: MediaQuery.of(context).size.height * .022,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
-          Container(
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Container(
+        // width: MediaQuery.of(context).size.width * .2,
+        height: MediaQuery.of(context).size.height * .6,
+        decoration: BoxDecoration(
             color: Colors.white,
-            width: MediaQuery.of(context).size.width * .18,
-            child: Text(
-              widget.noteOrder,
-              maxLines: 4,
-              overflow: TextOverflow.ellipsis,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.shade200,
+                  offset: Offset(2, 2),
+                  spreadRadius: 1,
+                  blurRadius: 3)
+            ]),
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * .05,
+                  height: MediaQuery.of(context).size.height * .1,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade200,
+                          // offset: Offset(2, 2),
+                          // spreadRadius: 1,
+                          // blurRadius: 3
+                        )
+                      ]),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.customerName,
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * .025,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * .05,
+                    width: MediaQuery.of(context).size.width * .08,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Customer'),
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100)),
+                          primary: orangeColros),
+                    )),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CircleAvatar(
+                  child: Icon(
+                    Icons.call,
+                    size: MediaQuery.of(context).size.width * .015,
+                  ),
+                  backgroundColor: purpleColros,
+                ),
+                Container(
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width * .1,
+                  child: Text(
+                    widget.custimerMobile,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * .022,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CircleAvatar(
+                  child: Icon(
+                    Icons.location_on,
+                    size: MediaQuery.of(context).size.width * .015,
+                  ),
+                  backgroundColor: purpleColros,
+                ),
+                Container(
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width * .1,
+                  child: Text(
+                    widget.customerAddress,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * .022,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                ),
+              ],
+            ),
+            Divider(),
+            Text(
+              'Note Order',
               style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.height * .018,
+                  fontSize: MediaQuery.of(context).size.height * .022,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
-          ),
-        ],
+            Container(
+              color: Colors.white,
+              width: MediaQuery.of(context).size.width * .18,
+              child: Text(
+                widget.noteOrder,
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height * .018,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget percentageContainer() {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       child: Container(
-        width: MediaQuery.of(context).size.width * .2,
+        // width: MediaQuery.of(context).size.width * .2,
         height: MediaQuery.of(context).size.height * .6,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -740,7 +863,7 @@ class _OrderDetailsState extends State<OrderDetails> {
             Row(
               children: [
                 Text(
-                  '10-14 Min',
+                  'Customer Favourite',
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.height * .025,
                       fontWeight: FontWeight.bold,
@@ -760,16 +883,16 @@ class _OrderDetailsState extends State<OrderDetails> {
                     groupTo: 2)
               ]),
             ),
-            linearpercent(),
-            linearpercent(),
-            linearpercent(),
+            linearpercent('Pizza  (40%)','25',Color(0xff624FD1)),
+            linearpercent('Juice (53%)','60',Color(0xffFFA41D)),
+            linearpercent('Dessert (25%)','7',Color(0xff72C1E2)),
           ],
         ),
       ),
     );
   }
 
-  linearpercent() {
+  linearpercent(String heading,String count,progcolor) {
     return Column(
       children: [
         Padding(
@@ -778,10 +901,10 @@ class _OrderDetailsState extends State<OrderDetails> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Food Rating',
+                heading,
               ),
               Text(
-                'foodRating',
+                count,
               ),
             ],
           ),
@@ -792,11 +915,11 @@ class _OrderDetailsState extends State<OrderDetails> {
         LinearPercentIndicator(
           animation: true,
           animationDuration: 1000,
-          lineHeight: 10,
-          percent: 1 / 100,
-          // barRadius: Radius.circular(100),
+          lineHeight: 8,
+          percent: int.parse(count)/100,
+          barRadius: Radius.circular(100),
           linearStrokeCap: LinearStrokeCap.roundAll,
-          progressColor: Colors.red,
+          progressColor: progcolor,
           backgroundColor: Colors.grey[300],
         ),
       ],

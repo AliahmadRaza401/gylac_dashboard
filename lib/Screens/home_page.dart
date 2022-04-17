@@ -422,7 +422,7 @@ class DashboardDetailsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
-        height: MediaQuery.of(context).size.height * .27,
+        height: MediaQuery.of(context).size.height * .28,
         width: MediaQuery.of(context).size.width * .42,
         decoration: BoxDecoration(
             color: white,
@@ -456,7 +456,7 @@ class DashboardDetailsCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                    height: MediaQuery.of(context).size.height * .17,
+                    height: MediaQuery.of(context).size.height * .18,
                     width: MediaQuery.of(context).size.width * .2,
                     decoration: BoxDecoration(
                         color: white,
@@ -523,7 +523,7 @@ class DashboardDetailsCard extends StatelessWidget {
                       ],
                     )),
                 Container(
-                    height: MediaQuery.of(context).size.height * .17,
+                    height: MediaQuery.of(context).size.height * .18,
                     width: MediaQuery.of(context).size.width * .2,
                     decoration: BoxDecoration(
                         color: white,

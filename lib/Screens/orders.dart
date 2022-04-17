@@ -213,6 +213,8 @@ class _OrdersState extends State<Orders> {
   Widget ordersRow(number, String orderId, String date, String customerName,
       String location, String amount, String docId, String pending) {
     return Container(
+      height: MediaQuery.of(context).size.height *.13,
+      color: Colors.transparent,
       padding: EdgeInsets.all(20),
       child: Column(
         children: [
@@ -220,7 +222,6 @@ class _OrdersState extends State<Orders> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               mytext(context, '$number'),
-              // Checkbox(value: true, onChanged: (value) {}),
               Container(
                   // color: Colors.blue,
                   alignment: Alignment.bottomLeft,

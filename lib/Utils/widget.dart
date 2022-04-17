@@ -54,6 +54,40 @@ Widget iconContainerWithtext(
       ));
 }
 
+
+Widget iconContainerWithdoubleIcon(
+    BuildContext context, icon, text, bgcolor, fgColor, width, height,secondIcon) {
+  return Container(
+      width: MediaQuery.of(context).size.width * width,
+      height: MediaQuery.of(context).size.height * height,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          color: bgcolor,
+          // border: Border.all(color: fgColor),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(.3),
+                offset: Offset(1, 1),
+                spreadRadius: 1,
+                blurRadius: 1)
+          ]),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon,
+            SizedBox(width: MediaQuery.of(context).size.width *.005),
+            Text(
+              text,
+              style: TextStyle(color: fgColor),
+            ),
+            SizedBox(width: MediaQuery.of(context).size.width *.005),
+            secondIcon
+          ],
+        ),
+      ));
+}
+
 Widget myButton(BuildContext context, btnText, VoidCallback function,
     double btnWidth, double btnHeight) {
   return Padding(
@@ -150,10 +184,10 @@ Widget myheading(BuildContext context, String text) {
           SizedBox(
             width: 10,
           ),
-          Image.asset(
-            sortIcon,
-            height: 13,
-          )
+          // Image.asset(
+          //   sortIcon,
+          //   height: 13,
+          // )
         ],
       ),
     ],
