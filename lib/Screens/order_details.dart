@@ -222,7 +222,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 7,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -282,204 +282,204 @@ class _OrderDetailsState extends State<OrderDetails> {
                       ),
                       Row(
                         children: [
-                          Expanded
-                          (
-                            flex: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                 height: MediaQuery.of(context).size.height * .15,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey.shade200,
-                                          offset: Offset(2, 2),
-                                          spreadRadius: 1,
-                                          blurRadius: 3)
-                                    ]),
-                  child:     Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  .05,
-                                          height:
-                                              MediaQuery.of(context).size.height *
-                                                  .1,
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey.shade200,
-                                                  // offset: Offset(2, 2),
-                                                  // spreadRadius: 1,
-                                                  // blurRadius: 3
-                                                )
-                                              ]),
-                                        )),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          'Delivery guy',
-                                          style: TextStyle(
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  .018,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          widget.deliveryGuy,
-                                          style: TextStyle(
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  .025,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          'ID ' + widget.orderId,
-                                          style: TextStyle(
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  .025,
-                                              color: orangeColros),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                      ],
-                                    ),
-                                    Spacer(),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              child: Icon(
-                                                Icons.chat,
-                                                size: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    .015,
-                                              ),
-                                              backgroundColor: orangeColros,
-                                            ),
-                                            SizedBox(
-                                              width: 20,
-                                            ),
-                                            CircleAvatar(
-                                              child: Icon(
-                                                Icons.call,
-                                                size: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    .015,
-                                              ),
-                                              backgroundColor: orangeColros,
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                  ],
-                                ),
-                          ),
-                            )),
-                           Expanded(
-                            flex: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                 height:
-                                  MediaQuery.of(context).size.height * .15,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey.shade200,
-                                        offset: Offset(2, 2),
-                                        spreadRadius: 1,
-                                        blurRadius: 3)
-                                  ]),
-                              padding: EdgeInsets.all(10),
-                              child: Row(
-                                children: [
-                                  Image.asset(airplanIcon),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        .015,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                          Expanded(
+                              flex: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * .15,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.shade200,
+                                            offset: Offset(2, 2),
+                                            spreadRadius: 1,
+                                            blurRadius: 3)
+                                      ]),
+                                  child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Estimated Time',
-                                        style: TextStyle(
-                                            fontSize: MediaQuery.of(context)
+                                      Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .05,
+                                            height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                .018,
-                                            color: Colors.black),
+                                                .1,
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey.shade200,
+                                                    // offset: Offset(2, 2),
+                                                    // spreadRadius: 1,
+                                                    // blurRadius: 3
+                                                  )
+                                                ]),
+                                          )),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            'Delivery guy',
+                                            style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .018,
+                                                color: Colors.black),
+                                          ),
+                                          Text(
+                                            widget.deliveryGuy,
+                                            style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .025,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          Text(
+                                            'ID ' + widget.orderId,
+                                            style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .025,
+                                                color: orangeColros),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        widget.estimatedTime,
-                                        style: TextStyle(
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .025,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
+                                      Spacer(),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              CircleAvatar(
+                  radius: MediaQuery.of(context).size.height *.03,
+
+                                                child: Icon(
+                                                  Icons.chat,
+                                                  size: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      .015,
+                                                ),
+                                                backgroundColor: orangeColros,
+                                              ),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              CircleAvatar(
+                  radius: MediaQuery.of(context).size.height *.03,
+
+                                                child: Icon(
+                                                  Icons.call,
+                                                  size: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      .015,
+                                                ),
+                                                backgroundColor: orangeColros,
+                                              ),
+                                            ],
+                                          )
+                                        ],
                                       ),
                                       SizedBox(
-                                        height: 5,
+                                        width: 20,
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                          ),
-                            )),
-                        
-                          // Padding(
-                          //   padding: const EdgeInsets.all(10),
-                          //   child: Container(
-                          //     width: MediaQuery.of(context).size.width * .25,
-                         
-                          //   ),
-                          // ),
+                                ),
+                              )),
+                          Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * .15,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.shade200,
+                                            offset: Offset(2, 2),
+                                            spreadRadius: 1,
+                                            blurRadius: 3)
+                                      ]),
+                                  padding: EdgeInsets.all(10),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(airplanIcon),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .015,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            'Estimated Time',
+                                            style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .018,
+                                                color: Colors.black),
+                                          ),
+                                          Text(
+                                            widget.estimatedTime,
+                                            style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .025,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )),
                         ],
                       ),
-                    
+
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: Container(
@@ -501,7 +501,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                           child: Column(
                             children: [
                               headingsRow(),
-                              SizedBox(height: MediaQuery.of(context).size.height *.01,),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * .01,
+                              ),
                               itemsRow(
                                   'mainCourse',
                                   widget.parcelName,
@@ -784,6 +787,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CircleAvatar(
+                  radius: MediaQuery.of(context).size.height *.03,
                   child: Icon(
                     Icons.call,
                     size: MediaQuery.of(context).size.width * .015,
@@ -807,6 +811,8 @@ class _OrderDetailsState extends State<OrderDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CircleAvatar(
+                  radius: MediaQuery.of(context).size.height *.03,
+
                   child: Icon(
                     Icons.location_on,
                     size: MediaQuery.of(context).size.width * .015,
