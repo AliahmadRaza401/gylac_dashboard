@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
 import 'package:gylac_dashboard/Utils/widget.dart';
 
-class DriversScreen extends StatefulWidget {
-  const DriversScreen({Key? key}) : super(key: key);
+class DriversScreenForMobile extends StatefulWidget {
+  const DriversScreenForMobile({Key? key}) : super(key: key);
 
   @override
-  State<DriversScreen> createState() => _DriversScreenState();
+  State<DriversScreenForMobile> createState() => _DriversScreenForMobileState();
 }
 
-class _DriversScreenState extends State<DriversScreen>
+class _DriversScreenForMobileState extends State<DriversScreenForMobile>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

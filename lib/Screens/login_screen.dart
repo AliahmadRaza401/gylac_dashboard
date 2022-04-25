@@ -23,8 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                    'asset/DashboardIcons/Template-banner-of-car-pick-up-and-drop-service-06-large.jpg'),
-                fit: BoxFit.cover)),
+                    'asset/DashboardIcons/Admin Panel 2.png'),
+                fit: BoxFit.fitWidth)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //   ],
             // ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 // Container(
                 //   width: MediaQuery.of(context).size.width * .4,
@@ -47,7 +47,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 //           ),
                 //           fit: BoxFit.cover)),
                 // ),
-                loginContainer()
+                
+                Padding(
+                  padding:  EdgeInsets.only(
+                    right:MediaQuery.of(context).size.width *.03,
+                    top:MediaQuery.of(context).size.height *.05
+                    ),
+                  child: loginContainer(),
+                ),
               ],
             ),
           ],
@@ -85,11 +92,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    "Login",
+                    "Admin Login",
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * .03,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xffFF8A00)),
+                        ),
                   ),
                   usernameField(),
                   passwordField(),

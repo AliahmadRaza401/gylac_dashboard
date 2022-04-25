@@ -534,69 +534,142 @@ class _MobileSideBarState extends State<MobileSideBar> {
               // width: double.infinity,
               height: MediaQuery.of(context).size.height / 7,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height / 10,
-              color: themeColor,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset('asset/DashboardIcons/ic_dashboard.png',
-                        height: MediaQuery.of(context).size.height / 40),
-                    Text(
-                      'Dashboard',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: purpleDashboard,
-                          fontSize: MediaQuery.of(context).size.width / 50),
-                    )
-                  ],
-                ),
-              ),
-            ),
             Expanded(
-                child: Container(
-              width: double.infinity,
-              color: Colors.black,
-              child: Column(
-                children: [
-                  iconDashboardforMobile('asset/DashboardIcons/profile.png', 0),
-                  iconDashboardforMobile('asset/DashboardIcons/Group.png', 1),
-                  iconDashboardforMobile(
-                      'asset/DashboardIcons/profileGroup.png', 2),
-                  iconDashboardforMobile(
-                      'asset/DashboardIcons/notifications.png', 3),
-                  iconDashboardforMobile('asset/DashboardIcons/doc.png', 4),
-                  iconDashboardforMobile(
-                      'asset/DashboardIcons/document.png', 5),
-                  iconDashboardforMobile(
-                      'asset/DashboardIcons/pinloction.png', 6),
-                  iconDashboardforMobile('asset/DashboardIcons/setting.png', 7),
-                ],
-              ),
-            ))
+                child:  Expanded(
+              child: Container(
+                  width: double.infinity,
+                  color: Colors.black,
+                  child: ListView.builder(
+                      itemCount: sideItems.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedIndex = index;
+                              });
+                            },
+                            child: dashboardSelectionForMobile(
+                              sideItems[index]['icon'],
+                              selectedIndex == index
+                                  ? sideItems[index]['activeColor']
+                                  : sideItems[index]['incativeColor'],
+                              selectedIndex == index
+                                  ? sideItems[index]['text']
+                                  : '',
+                              selectedIndex == index
+                                  ? sideItems[index]['bgActive']
+                                  : sideItems[index]['bgInactive'],
+                            )
+                            );
+                      }))),
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget iconDashboardforMobile(String img, int selectedIndex) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          index = selectedIndex;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        child: Image.asset(
-          img,
-          height: MediaQuery.of(context).size.height / 50,
+    dashboardSelectionForMobile(image, imagecolor, text, bgColor) {
+    return Container(
+      height: MediaQuery.of(context).size.height * .1,
+      color: bgColor,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(image,
+                height: MediaQuery.of(context).size.height * .03,
+                color: imagecolor),
+            Text(
+              text,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: purpleDashboard,
+                fontSize: MediaQuery.of(context).size.width * .01,
+              ),
+            )
+          ],
         ),
       ),
     );
   }
+
+ int selectedIndex = 0;
+  List sideItems = [
+    {
+      'icon': 'asset/DashboardIcons/ic_dashboard.png',
+      'text': 'Dashboard',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+    {
+      'icon': 'asset/DashboardIcons/profile.png',
+      'text': 'Users',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+    {
+      'icon': 'asset/DashboardIcons/Group.png',
+      'text': 'Orders',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+    {
+      'icon': 'asset/DashboardIcons/profileGroup.png',
+      'text': 'Reviews',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+    {
+      'icon': 'asset/DashboardIcons/notifications.png',
+      'text': 'Notifications',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+    {
+      'icon': 'asset/DashboardIcons/doc.png',
+      'text': 'Docs',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+    {
+      'icon': 'asset/DashboardIcons/document.png',
+      'text': 'Document',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+    {
+      'icon': 'asset/DashboardIcons/pinloction.png',
+      'text': 'PinLocation',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+    {
+      'icon': 'asset/DashboardIcons/setting.png',
+      'text': 'Settings',
+      'activeColor': purpleDashboard,
+      'incativeColor': Colors.white,
+      'bgInactive': Colors.transparent,
+      'bgActive': themeColor
+    },
+  ];
+ 
 }
 
 Widget mobileinputField(

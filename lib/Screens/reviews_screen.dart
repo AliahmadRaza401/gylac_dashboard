@@ -213,13 +213,24 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                                   MediaQuery.of(context).size.height * .018,
                               color: Colors.black),
                         ),
-                        Text(
-                          date,
-                          style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).size.height * .025,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                        Container(
+                          width: MediaQuery.of(context).size.width *.2,
+                          child: Wrap(
+                            children: [
+                              Text(
+                                date,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height * .025,
+                                    fontWeight: FontWeight.bold,
+                                
+                                    
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 5,
