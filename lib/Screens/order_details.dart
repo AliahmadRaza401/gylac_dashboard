@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, deprecated_member_use, must_be_immutable, use_key_in_widget_constructors
 
+import 'dart:async';
+import 'dart:math';
 
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gylac_dashboard/Screens/loc_map.dart';
@@ -54,47 +57,72 @@ class _OrderDetailsState extends State<OrderDetails> {
     ChartData(x: 'Others', y: 52, color: Colors.transparent)
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    startTime();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer!.cancel();
+  }
+
+  Timer? _timer;
+
+  startTime() {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      getUpdate();
+    });
+  }
+
   bool step4 = false;
   bool step5 = false;
+  var trackStatus;
+  var driverId;
 
-  // getUpdate() async{
-  //   firebaseFirestore
-  //       .collection("orders")
-  //       .doc(deliveryProvider.orderId).get().then((value){
-  //     if(mounted) {
-  //       setState(() {
-  //         trackStatus = value.data()!["trackStatus"].toString();
-  //         driverId = value.data()!["driverId"].toString();
-  //       });
-  //     }
-  //   });
-  //   if(trackStatus =="WaitForPickup"){
-  //     if(mounted){
-  //       setState(() {
-  //         step4 = false;
-  //         step5 = false;
-  //       });
-  //     }
-  //   }
-  //   else if(trackStatus =="Picked"){
-  //     if(mounted){
-  //       setState(() {
-  //         step4 = true;
-  //       });
-  //     }
-  //   }
-  //   else if(trackStatus =="Delivered"){
-  //     if(mounted){
-  //       setState(() {
-  //         step5 = true;
-  //         _timer!.cancel();
-  //       });
-  //     }
-  //     Fluttertoast.showToast(msg: "Order Delivered Successfully",textColor: Colors.white,backgroundColor: Colors.green);
-  //   }
-  //   else{
-  //   }
-  // }
+  getUpdate() async {
+    FirebaseFirestore.instance
+        .collection("orders")
+        .doc(widget.orderId)
+        .get()
+        .then((value) {
+      if (mounted) {
+        setState(() {
+          trackStatus = value.data()!["trackStatus"].toString();
+          print('trackStatus: $trackStatus');
+          driverId = value.data()!["driverId"].toString();
+        });
+      }
+    });
+    if (trackStatus == "WaitForPickup") {
+      if (mounted) {
+        setState(() {
+          step4 = false;
+          step5 = false;
+        });
+      }
+    } else if (trackStatus == "Picked") {
+      if (mounted) {
+        setState(() {
+          step4 = true;
+        });
+      }
+    } else if (trackStatus == "Delivered") {
+      if (mounted) {
+        setState(() {
+          step5 = true;
+          _timer!.cancel();
+        });
+      }
+      // Fluttertoast.showToast(
+      //     msg: "Order Delivered Successfully",
+      //     textColor: Colors.white,
+      //     backgroundColor: Colors.green);
+    } else {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -377,8 +405,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                                           Row(
                                             children: [
                                               CircleAvatar(
-                  radius: MediaQuery.of(context).size.height *.03,
-
+                                                radius: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .03,
                                                 child: Icon(
                                                   Icons.chat,
                                                   size: MediaQuery.of(context)
@@ -392,8 +422,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 width: 20,
                                               ),
                                               CircleAvatar(
-                  radius: MediaQuery.of(context).size.height *.03,
-
+                                                radius: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .03,
                                                 child: Icon(
                                                   Icons.call,
                                                   size: MediaQuery.of(context)
@@ -787,7 +819,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CircleAvatar(
-                  radius: MediaQuery.of(context).size.height *.03,
+                  radius: MediaQuery.of(context).size.height * .03,
                   child: Icon(
                     Icons.call,
                     size: MediaQuery.of(context).size.width * .015,
@@ -811,8 +843,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CircleAvatar(
-                  radius: MediaQuery.of(context).size.height *.03,
-
+                  radius: MediaQuery.of(context).size.height * .03,
                   child: Icon(
                     Icons.location_on,
                     size: MediaQuery.of(context).size.width * .015,
@@ -884,7 +915,7 @@ class _OrderDetailsState extends State<OrderDetails> {
             Row(
               children: [
                 Text(
-                  'Customer Favourite',
+                  'Customer Order',
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.height * .025,
                       fontWeight: FontWeight.bold,
@@ -904,9 +935,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                     groupTo: 2)
               ]),
             ),
-            linearpercent('Pizza  (40%)', '25', Color(0xff624FD1)),
-            linearpercent('Juice (53%)', '60', Color(0xffFFA41D)),
-            linearpercent('Dessert (25%)', '7', Color(0xff72C1E2)),
+            linearpercent('Completed  (40%)', '25', Color(0xff624FD1)),
+            linearpercent('Pending (53%)', '60', Color(0xffFFA41D)),
+            linearpercent('Cancel (25%)', '7', Color(0xff72C1E2)),
           ],
         ),
       ),

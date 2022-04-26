@@ -388,12 +388,13 @@ class _DriversScreenState extends State<DriversScreen>
                   image: DecorationImage(
                       image:
                           AssetImage('asset/DashboardIcons/red_circle.png'))),
-              child:
-               FadeInImage(image: NetworkImage(vehicleimage), placeholder: AssetImage('asset/car.png')
-              // CachedNetworkImage(
-              //   imageUrl: vehicleimage,
-              //   // scale: 4,
-              ),
+              child: FadeInImage(
+                  image: NetworkImage(vehicleimage),
+                  placeholder: AssetImage('asset/car.png')
+                  // CachedNetworkImage(
+                  //   imageUrl: vehicleimage,
+                  //   // scale: 4,
+                  ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
