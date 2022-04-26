@@ -87,7 +87,7 @@ class _TopRatedCardState extends State<TopRatedCard> {
                               width: MediaQuery.of(context).size.width * .04,
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  color: Colors.amber,
+                                  // color: Colors.amber,
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                       image: AssetImage('asset/download.png'),
@@ -161,9 +161,7 @@ class _TopRatedCardState extends State<TopRatedCard> {
                           minRating: 1,
                           direction: Axis.horizontal,
                           itemCount: 5,
-                          itemPadding:
-                          
-                              const EdgeInsets.symmetric(horizontal: 2.0),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                           itemBuilder: (context, _) => const Icon(
                             Icons.star,
                             color: Colors.amber,

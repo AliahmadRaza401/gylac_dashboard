@@ -130,7 +130,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: inputFieldCircular(
-                        context, 'Search here', null, null, Icon(Icons.search)),
+                        context, 'Search here', null, null, Icon(Icons.search),(value){}),
                   ),
                   Spacer(
                     flex: 5,

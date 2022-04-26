@@ -13,7 +13,7 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
-  CollectionReference ordersStream =
+  final ordersStream =
       FirebaseFirestore.instance.collection('orders');
   FirebaseFirestore db = FirebaseFirestore.instance;
   bool isloading = false;
@@ -91,9 +91,23 @@ class _OrdersState extends State<Orders> {
   //   // .onError((e){
   //   //   print(e.toString());
   // }
+Stream<QuerySnapshot> stream() async* {
+  var _stream = FirebaseFirestore.instance.collection('orders').snapshots();
+  yield* _stream;
+}
 
+
+Stream<QuerySnapshot> searchData(String string) async* {
+  var firestore = FirebaseFirestore.instance;
+  var _search = firestore
+      .collection('orders')
+      .where('pickupEmail', isEqualTo: string)
+      .snapshots();
+
+  yield* _search;
+}
   int i = 0;
-
+ String search='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +133,16 @@ class _OrdersState extends State<Orders> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 inputFieldCircular(
-                    context, 'Search here', null, null, Icon(Icons.search)),
+                    context, 'Search here', null, null, Icon(Icons.search),
+                    (value) {
+                  setState(() {
+                    search=value;
+                    // final ordersStream =
+                    //     FirebaseFirestore.instance.collection('orders').where('pickupEmail',isEqualTo: value);
+                  });
+                  // print(ordersStream.parameters);
+                  print(value);
+                }),
                 Spacer(
                   flex: 10,
                 ),
@@ -153,9 +176,7 @@ class _OrdersState extends State<Orders> {
           Expanded(
             // padding: EdgeInsets.all(20),
             child: StreamBuilder<QuerySnapshot>(
-              stream: ordersStream
-                  .orderBy('orderDate', descending: true)
-                  .snapshots(),
+              stream: search==''?stream():searchData(search),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
@@ -448,11 +469,17 @@ class _OrdersState extends State<Orders> {
           ),
         ),
         Positioned(
-                right: 0,
-                top: 2,
-                child: myButton(context, Text('Top Rated',style: TextStyle(
-                  fontSize: 11
-                ),), addtoTop, .07, .05))
+            right: 0,
+            top: 2,
+            child: myButton(
+                context,
+                Text(
+                  'Top Rated',
+                  style: TextStyle(fontSize: 11),
+                ),
+                addtoTop,
+                .07,
+                .05))
       ],
     );
   }

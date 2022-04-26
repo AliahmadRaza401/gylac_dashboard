@@ -75,7 +75,7 @@ class _AddTopRatedState extends State<AddTopRated> {
     final message = Message()
       ..from = Address(username, 'My email')
       ..recipients.add('b-23658@student.usa.edu.pk')
-      // ..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
+      ..ccRecipients.addAll(['b-23658@student.usa.edu.pk', 'b-23658@student.usa.edu.pk'])
       ..bccRecipients.add(Address('b-23658@student.usa.edu.pk'))
       ..subject = 'Test Dart Mailer library :: 😀 :: ${DateTime.now()}'
       ..text = 'This is the plain text.\nThis is line 2 of the text part.'
@@ -83,12 +83,13 @@ class _AddTopRatedState extends State<AddTopRated> {
 
     try {
       final sendReport = await send(message, smtpServer);
-      print('Message sent: ' + sendReport.toString());
+      print('Message sent: ');
+      print(sendReport);
     } on MailerException catch (e) {
       print('Message not sent.');
-      for (var p in e.problems) {
-        print('Problem: ${p.code}: ${p.msg}');
-      }
+      // for (var p in e.problems) {
+      //   print('Problem: ${p.code}: ${p.msg}');
+      // }
     }
   }
 
@@ -223,14 +224,15 @@ class _AddTopRatedState extends State<AddTopRated> {
                             )
                           : ElevatedButton(
                               onPressed: () {
-                                addToTopRated(
-                                    orderName,
-                                    parcel,
-                                    drvierName,
-                                    rating,
-                                    price,
-                                    vehicleType,
-                                    imageLinkController.text);
+                                sendMail();
+                                // addToTopRated(
+                                //     orderName,
+                                //     parcel,
+                                //     drvierName,
+                                //     rating,
+                                //     price,
+                                //     vehicleType,
+                                //     imageLinkController.text);
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: Color(0xffFF8A00),

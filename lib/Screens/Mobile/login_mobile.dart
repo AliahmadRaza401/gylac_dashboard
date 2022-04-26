@@ -1,11 +1,11 @@
 // ignore_for_file: deprecated_member_use, prefer_const_constructors
 
-
 import 'package:flutter/material.dart';
+import 'package:gylac_dashboard/Screens/Mobile/mobile_home.dart';
+import 'package:gylac_dashboard/Screens/home_page.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
 import 'package:gylac_dashboard/Utils/image.dart';
 import '../../Utils/style.dart';
-
 
 class LoginMobile extends StatefulWidget {
   const LoginMobile({Key? key}) : super(key: key);
@@ -19,7 +19,6 @@ class _LoginMobileState extends State<LoginMobile> {
   TextEditingController password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-
   // late AuthProvider _authProvider;
   // @override
   // void initState() {
@@ -32,7 +31,13 @@ class _LoginMobileState extends State<LoginMobile> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Colors.white,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('asset/Group 8503.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          // color: Colors.white,
           child: Form(
             key: _formKey,
             child: ListView(
@@ -41,13 +46,9 @@ class _LoginMobileState extends State<LoginMobile> {
                     height: MediaQuery.of(context).size.height * 0.47,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                    // color: Colors.blue,
+                        // color: Colors.blue,
 
-                      image: DecorationImage(
-                        image: AssetImage('asset/Group 8503.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                        ),
                     child: Padding(
                       padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.07,
@@ -62,18 +63,19 @@ class _LoginMobileState extends State<LoginMobile> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height * 0.05,
+                                  top:
+                                      MediaQuery.of(context).size.height * 0.05,
                                 ),
                                 child: Text("Admin  login",
                                     style: MyTextStyle.poppins().copyWith(
-                                        color: themeColor,
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: MediaQuery.of(context).size.width *
-                                            0.06)),
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.06)),
                               ),
                             ],
                           ),
-                        
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04,
                           ),
@@ -90,37 +92,39 @@ class _LoginMobileState extends State<LoginMobile> {
                                       MediaQuery.of(context).size.width * 0.04,
                                 )),
                           ),
-                          TextFormField(
-                            controller: email,
-                            textAlignVertical: TextAlignVertical.center,
-                            textAlign: TextAlign.left,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              fontSize: 13,
-                            ),
-                           
-                            
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
+                          Container(
+                            color: Colors.white,
+                            child: TextFormField(
+                              controller: email,
+                              textAlignVertical: TextAlignVertical.center,
+                              textAlign: TextAlign.left,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 13,
                               ),
-                              prefixIcon: Image.asset(
-                                messageimage,
-                                scale: 2.7,
-                              ),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                  top:
+                                      MediaQuery.of(context).size.height * 0.01,
+                                ),
+                                prefixIcon: Image.asset(
+                                  messageimage,
+                                  scale: 2.7,
+                                ),
 
-                              labelStyle: const TextStyle(),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: themeColor),
+                                labelStyle: const TextStyle(),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: themeColor),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: themeColor),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: themeColor),
+                                ),
+                                hintText: 'youremail',
+                                // labelText:"Your Name"
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: themeColor),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: themeColor),
-                              ),
-                              hintText: 'youremail',
-                              // labelText:"Your Name"
                             ),
                           ),
                         ],
@@ -147,39 +151,42 @@ class _LoginMobileState extends State<LoginMobile> {
                               style: MyTextStyle.poppins().copyWith(
                                   color: themeColor,
                                   fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.04)),
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.04)),
                         ),
-                        TextFormField(
-                            controller: password,
-                            textAlignVertical: TextAlignVertical.center,
-                            textAlign: TextAlign.left,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              fontSize: 13,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height *
-                                    0.01, // HERE THE IMPORTANT PART
+                        Container(
+                          color: Colors.white,
+                          child: TextFormField(
+                              controller: password,
+                              textAlignVertical: TextAlignVertical.center,
+                              textAlign: TextAlign.left,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 13,
                               ),
-                              prefixIcon: Image.asset(
-                                lockimage,
-                                scale: 2.7,
-                              ),
-                              labelStyle: const TextStyle(),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: themeColor),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: themeColor),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: themeColor),
-                              ),
-                              hintText: 'typestrongpassword',
-                              // labelText:"Your Name"
-                            )),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.01, // HERE THE IMPORTANT PART
+                                ),
+                                prefixIcon: Image.asset(
+                                  lockimage,
+                                  scale: 2.7,
+                                ),
+                                labelStyle: const TextStyle(),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: themeColor),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: themeColor),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: themeColor),
+                                ),
+                                hintText: 'typestrongpassword',
+                                // labelText:"Your Name"
+                              )),
+                        ),
                         Padding(
                           padding: EdgeInsets.only(
                               top: MediaQuery.of(context).size.height * 0.001,
@@ -190,40 +197,39 @@ class _LoginMobileState extends State<LoginMobile> {
                               style: MyTextStyle.poppins().copyWith(
                                   color: themeColor,
                                   fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.04)),
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.04)),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.04,
                         ),
-                       Center(
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.07,
-                                  width: MediaQuery.of(context).size.width * 0.5,
-                                  child: MaterialButton(
-                                    elevation: 5,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5)),
-                                    onPressed: () async {
-                                    
-                                    },
-                                    color: themeColor,
-                                    child: Text(
-                                      'login'.toUpperCase(),
-                                      style: MyTextStyle.poppins().copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize:
-                                              MediaQuery.of(context).size.width *
-                                                  0.05),
-                                    ),
-                                  ),
-                                ),
+                        Center(
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: MaterialButton(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                              onPressed: () async {
+                                print('object');
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomePage()));
+                              },
+                              color: themeColor,
+                              child: Text(
+                                'login'.toUpperCase(),
+                                style: MyTextStyle.poppins().copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.04),
                               ),
+                            ),
+                          ),
+                        ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03),
-                        
                       ],
                     ),
                   ),

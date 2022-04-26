@@ -229,13 +229,14 @@ Widget inputField(
 }
 
 Widget inputFieldCircular(
-    BuildContext context, String placeholder, controller, keyboard, icon) {
+    BuildContext context, String placeholder, controller, keyboard, icon,function) {
   return Container(
     width: MediaQuery.of(context).size.width * .3,
     height: MediaQuery.of(context).size.height * .06,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
         color: Colors.white,
+        
         boxShadow: [
           BoxShadow(
               color: Colors.grey.shade200,
@@ -244,15 +245,15 @@ Widget inputFieldCircular(
               blurRadius: 1)
         ]),
     child: TextField(
-      
+      onChanged: function,
       style: TextStyle(fontSize: MediaQuery.of(context).size.width / 80),
       keyboardType: keyboard,
       
       controller: controller,
       decoration: InputDecoration(
-         
+          
           suffixIcon: Padding(
-            padding:EdgeInsets.only(right: 15) ,
+            padding:EdgeInsets.only(right: 15,) ,
             child: icon),
           hintText: placeholder,
           border: OutlineInputBorder(
@@ -263,7 +264,7 @@ Widget inputFieldCircular(
             ),
           ),
           // isDense: true,
-          contentPadding: EdgeInsets.only(left: 15, top: 35)),
+          contentPadding: EdgeInsets.only(left: 15,  top:MediaQuery.of(context).size.height *.02)),
     ),
   );
 }

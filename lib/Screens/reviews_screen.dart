@@ -44,7 +44,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   inputFieldCircular(
-                      context, 'Search here', null, null, Icon(Icons.search)),
+                      context, 'Search here', null, null, Icon(Icons.search),(value){}),
                   Spacer(flex: 10,),
                   iconContainerWithtext(
                       context,
