@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Screens/order_details.dart';
 import 'package:gylac_dashboard/Utils/widget.dart';
 
-class Orders extends StatefulWidget {
-  const Orders({Key? key}) : super(key: key);
+class OrdersMobile extends StatefulWidget {
+  const OrdersMobile({Key? key}) : super(key: key);
 
   @override
-  State<Orders> createState() => _OrdersState();
+  State<OrdersMobile> createState() => _OrdersMobileState();
 }
 
-class _OrdersState extends State<Orders> {
+class _OrdersMobileState extends State<OrdersMobile> {
   final ordersStream =
       FirebaseFirestore.instance.collection('orders');
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -120,7 +120,7 @@ Stream<QuerySnapshot> searchData(String string) async* {
                 Text(
                   'Order List',
                   style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * .035,
+                      fontSize: MediaQuery.of(context).size.height * .025,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
                 ),
@@ -132,8 +132,8 @@ Stream<QuerySnapshot> searchData(String string) async* {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                inputFieldCircular(
-                    context, 'Search here', null, null, Icon(Icons.search),
+                inputFieldCircularMobile(
+                    context, 'Search here', null, null, Icon(Icons.search,size: 10,),
                     (value) {
                   setState(() {
                     search=value;
@@ -143,31 +143,31 @@ Stream<QuerySnapshot> searchData(String string) async* {
                   // print(ordersStream.parameters);
                   print(value);
                 }),
-                Spacer(
-                  flex: 10,
-                ),
-                iconContainerWithdoubleIcon(
-                    context,
-                    Image.asset('asset/DashboardIcons/filter.png'),
-                    'Filter',
-                    Colors.white,
-                    Colors.black,
-                    .08,
-                    .06,
-                    Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                      color: Colors.deepOrange,
-                    )),
-                Spacer(
-                  flex: 1,
-                ),
+                // Spacer(
+                //   flex: 2,
+                // ),
+                // iconContainerWithdoubleIcon(
+                //     context,
+                //     Image.asset('asset/DashboardIcons/filter.png',width: 10,),
+                //     'Filter',
+                //     Colors.white,
+                //     Colors.black,
+                //     .05,
+                //     .03,
+                //     Icon(
+                //       Icons.keyboard_arrow_down_outlined,
+                //       color: Colors.deepOrange,
+                //     )),
+                // Spacer(
+                //   flex: 1,
+                // ),
                 Image.asset(
                   'asset/DashboardIcons/refreshs.png',
                   width: MediaQuery.of(context).size.width * .03,
                 ),
-                Spacer(
-                  flex: 1,
-                ),
+                // Spacer(
+                //   flex: 1,
+                // ),
               ],
             ),
           ),
@@ -394,6 +394,7 @@ Stream<QuerySnapshot> searchData(String string) async* {
       children: [
         Container(
           // height: MediaQuery.of(context).size.height *.13,
+          width: 800,
           color: Colors.transparent,
           padding: EdgeInsets.all(20),
           child: Column(
@@ -401,32 +402,32 @@ Stream<QuerySnapshot> searchData(String string) async* {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  mytext(context, '$number'),
+                  mytextForMobile(context, '$number'),
                   Container(
                       // color: Colors.blue,
                       alignment: Alignment.bottomLeft,
                       width: MediaQuery.of(context).size.width * .08,
-                      child: mytext(context, orderId)),
+                      child: mytextForMobile(context, orderId)),
                   Container(
                       alignment: Alignment.bottomLeft,
                       // color: Colors.red,
                       width: MediaQuery.of(context).size.width * .15,
-                      child: mytext(context, date)),
+                      child: mytextForMobile(context, date)),
                   Container(
                       alignment: Alignment.bottomLeft,
                       // color: Colors.amber,
                       width: MediaQuery.of(context).size.width * .12,
-                      child: mytext(context, customerName)),
+                      child: mytextForMobile(context, customerName)),
                   Container(
                       // color: Colors.pink,
                       alignment: Alignment.bottomLeft,
                       width: MediaQuery.of(context).size.width * .15,
-                      child: mytext(context, location)),
+                      child: mytextForMobile(context, location)),
                   Container(
                       // color: Colors.yellow,
                       alignment: Alignment.bottomLeft,
                       width: MediaQuery.of(context).size.width * .1,
-                      child: mytext(context, amount)),
+                      child: mytextForMobile(context, amount)),
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       height: MediaQuery.of(context).size.height * .05,
@@ -443,6 +444,7 @@ Stream<QuerySnapshot> searchData(String string) async* {
                       ))),
                   Container(
                     width: MediaQuery.of(context).size.width * .02,
+                    height: MediaQuery.of(context).size.width * .01,
                     // color: Colors.amber,
                     child: pending == 'pending'
                         ? GestureDetector(
@@ -468,18 +470,18 @@ Stream<QuerySnapshot> searchData(String string) async* {
             ],
           ),
         ),
-        Positioned(
-            right: 0,
-            top: 2,
-            child: myButton(
-                context,
-                Text(
-                  'Top Rated',
-                  style: TextStyle(fontSize: 11),
-                ),
-                addtoTop,
-                .07,
-                .05))
+        // Positioned(
+        //     right: 0,
+        //     top: 2,
+        //     child: myButton(
+        //         context,
+        //         Text(
+        //           'Top Rated',
+        //           style: TextStyle(fontSize: 11),
+        //         ),
+        //         addtoTop,
+        //         .07,
+        //         .05))
       ],
     );
   }
@@ -493,42 +495,42 @@ Stream<QuerySnapshot> searchData(String string) async* {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              mytext(context, ''),
-              // myheading(context, '$number'),
+              mytextForMobile(context, ''),
+              // mobileheading(context, '$number'),
               // Image.asset(sortIcon),
               Container(
                   // color: Colors.blue,
                   alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .08,
-                  child: myheading(context, orderId)),
+                  child: mobileheading(context, orderId)),
               Container(
                   alignment: Alignment.bottomLeft,
                   // color: Colors.red,
                   width: MediaQuery.of(context).size.width * .15,
-                  child: myheading(context, date)),
+                  child: mobileheading(context, date)),
               Container(
                   alignment: Alignment.bottomLeft,
                   // color: Colors.amber,
                   width: MediaQuery.of(context).size.width * .12,
-                  child: myheading(context, customerName)),
+                  child: mobileheading(context, customerName)),
               Container(
                   // color: Colors.pink,
                   alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .15,
-                  child: myheading(context, location)),
+                  child: mobileheading(context, location)),
               Container(
                   // color: Colors.yellow,
                   alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .1,
-                  child: myheading(context, amount)),
+                  child: mobileheading(context, amount)),
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   // height: MediaQuery.of(context).size.height * .05,
                   width: MediaQuery.of(context).size.width * .1,
                   child: Center(
-                      child: myheading(
+                      child: mobileheading(
                     context,
-                    pending,
+                    'Status',
                     // style: TextStyle(color: Colors.black),
                   ))),
               Container(

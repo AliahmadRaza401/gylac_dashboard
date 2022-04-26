@@ -1,10 +1,9 @@
 // ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, use_key_in_widget_constructors, avoid_unnecessary_containers
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Screens/Mobile/mobile_home.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
-
-import '../Utils/image.dart';
 import '../Utils/widget.dart';
 
 // Widget sideBar(BuildContext context) {
@@ -20,6 +19,132 @@ class MobileDashBoard extends StatefulWidget {
 }
 
 class _MobileDashBoardState extends State<MobileDashBoard> {
+    int totalCustomers = 0;
+  int pendingOrders = 0;
+  int deliverdOrders = 0;
+  int activedOrders = 0;
+  int canceledOrders = 0;
+  int totalDrivers=0;
+  int activeDrivers=0;
+  int pendingDrivers=0;
+  int rejectedDrivers=0;
+  @override
+  void initState() {
+    super.initState();
+    getCount();
+  }
+
+  Future getCount() async {
+    FirebaseFirestore.instance
+        .collection('orders') //your collectionref
+        .where('orderStatus', isEqualTo: 'pending')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        pendingOrders = count;
+      });
+    });
+    FirebaseFirestore.instance
+        .collection('orders') //your collectionref
+        .where('orderStatus', isEqualTo: 'completed')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        deliverdOrders = count;
+      });
+    });
+    FirebaseFirestore.instance
+        .collection('orders') //your collectionref
+        .where('orderStatus', isEqualTo: 'canceled')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        canceledOrders = count;
+      });
+    });
+    FirebaseFirestore.instance
+        .collection('orders') //your collectionref
+        .where('orderStatus', isEqualTo: 'active')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        activedOrders = count;
+      });
+    });
+
+    FirebaseFirestore.instance
+        .collection('drivers') //your collectionref
+        // .where('status', isEqualTo: 'active')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        totalDrivers = count;
+      });
+    });
+      FirebaseFirestore.instance
+        .collection('drivers') //your collectionref
+        .where('status', isEqualTo: 'pending')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        pendingDrivers = count;
+      });
+    });
+
+      FirebaseFirestore.instance
+        .collection('drivers') //your collectionref
+        .where('status', isEqualTo: 'rejected')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        rejectedDrivers = count;
+      });
+    });
+  
+
+    FirebaseFirestore.instance
+        .collection('drivers') //your collectionref
+        .where('status', isEqualTo: 'active')
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        activeDrivers = count;
+      });
+    });
+
+    
+
+    FirebaseFirestore.instance
+        .collection('users') //your collectionref
+        // .where('deleted', isEqualTo: false)
+        .get()
+        .then((value) {
+      var count = 0;
+      count = value.docs.length;
+      setState(() {
+        totalCustomers = count;
+      });
+    });
+
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,12 +220,14 @@ class _MobileDashBoardState extends State<MobileDashBoard> {
                     bgcolor: skyblue,
                     title: 'Total Revenue',
                     value: '\$ 87,561',
-                    image: 'asset/DashboardIcons/revenue.png'),
+                    image: 'asset/DashboardIcons/revenue.png'
+                    ),
                 DashboardStatCardForMobile(
-                    bgcolor: greencolor,
+                   bgcolor: greencolor,
                     title: 'Delivered Ordes',
-                    value: '459',
-                    image: 'asset/DashboardIcons/deliverd.png'),
+                    value: '$deliverdOrders',
+                    image: 'asset/DashboardIcons/deliverd.png'
+                    ),
               ],
             ),
             SizedBox(
@@ -110,176 +237,202 @@ class _MobileDashBoardState extends State<MobileDashBoard> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 DashboardStatCardForMobile(
-                    bgcolor: deeporangecolor,
+                      bgcolor: deeporangecolor,
                     title: 'Pending Orders',
-                    value: '247',
-                    image: 'asset/DashboardIcons/pendin.png'),
+                    value: '$pendingOrders',
+                    image: 'asset/DashboardIcons/pendin.png'
+                    ),
                 DashboardStatCardForMobile(
                     bgcolor: themeColor,
                     title: 'Customers',
-                    value: '872',
+                    value: '$totalCustomers',
                     image: 'asset/DashboardIcons/customers.png'),
               ],
             ),
 
-            DashboardDetailsCardForMobile(
-                bgcolor: white,
-                title: 'Orders Details',
-                text1: 'Active Orders',
-                value1: '1148',
-                text2: 'Pending Orders',
-                value2: '200',
-                text3: 'Delivered Orders',
-                value3: '865',
-                text4: 'Cancelled Orders',
-                value4: '67',
-                progess1: 20,
-                totalprogress1: 100,
-                progess2: 50,
-                totalprogress2: 100,
-                progess3: 10,
-                totalprogress3: 100,
-                progess4: 50,
-                totalprogress4: 100),
-            DashboardDetailsCardForMobile(
-                bgcolor: white,
-                title: 'Customers Details',
-                text1: 'Total Customers',
-                value1: '865',
-                text2: 'Active Customers',
-                value2: '67',
-                text3: 'Delivered Customers',
-                value3: '865',
-                text4: 'New Customers',
-                value4: '67',
-                progess1: 20,
-                totalprogress1: 100,
-                progess2: 50,
-                totalprogress2: 100,
-                progess3: 10,
-                totalprogress3: 100,
-                progess4: 50,
-                totalprogress4: 100),
-            PayrollCardForMobile(
-              bgcolor: white,
-              title: 'PayRoll',
-              filter: 'Filter by da',
-              text1: 'Total Payroll',
-              value1: '1999900 MNT',
-              progess1: 60,
-              totalprogress1: 100,
-              totalDrivers: '98',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DashboardDetailsCardForMobile(
+                      bgcolor: white,
+                        title: 'Orders Details',
+                        text1: 'Active Orders',
+                        value1: '$activedOrders',
+                        text2: 'Pending Orders',
+                        value2: '$pendingOrders',
+                        text3: 'Delivered Orders',
+                        value3: '$deliverdOrders',
+                        text4: 'Cancelled Orders',
+                        value4: '$canceledOrders',
+                        progess1: 20,
+                        totalprogress1: 100,
+                        progess2: 50,
+                        totalprogress2: 100,
+                        progess3: 10,
+                        totalprogress3: 100,
+                        progess4: 50,
+                        totalprogress4: 100
+                    ),
+              ],
             ),
-            DashboardDetailsCardForMobile(
-                bgcolor: white,
-                title: 'Drivers Details',
-                text1: 'Total Drivers',
-                value1: '865',
-                text2: 'Active Drivers',
-                value2: '67',
-                text3: 'Pending Drivers',
-                value3: '865',
-                text4: 'Deactive Drivers',
-                value4: '67',
-                progess1: 20,
-                totalprogress1: 100,
-                progess2: 50,
-                totalprogress2: 100,
-                progess3: 10,
-                totalprogress3: 100,
-                progess4: 50,
-                totalprogress4: 100),
-            Expanded(
-              child: Container(
-                // width: double.infinity,
-                height: MediaQuery.of(context).size.height * .1,
-                decoration: BoxDecoration(
-                    color: themeColor, borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  children: [
-                    // Spacer(
-                    //   flex: 1,
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:8.0,vertical: 15),
-                      child: inputField(context, "", null, null, null),
-                    ),
-                    // Spacer(),
-                    iconContainerFormobile(
-                        context,
-                        Text(
-                          'Filter by Date',
-                          style: TextStyle(color: themeColor, fontSize: 9),
-                        ),
-                        white,
-                        .15,
-                        20),
-                    // Spacer(flex: 9),
-                    Expanded(
-                      // width: MediaQuery.of(context).size.width * .3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          iconContainerFormobile(
-                              context,
-                              Text(
-                                'Copy',
-                                style: TextStyle(
-                                    color: themeColor,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            .02),
-                              ),
-                              white,
-                              .06,
-                              20),
-                          iconContainerFormobile(
-                              context,
-                              Text(
-                                'CSV',
-                                style: TextStyle(
-                                    color: themeColor,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            .02),
-                              ),
-                              white,
-                              .06,
-                              20),
-                          iconContainerFormobile(
-                              context,
-                              Text(
-                                'Excel',
-                                style: TextStyle(
-                                    color: themeColor,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            .02),
-                              ),
-                              white,
-                              .06,
-                              20),
-                          iconContainerFormobile(
-                              context,
-                              Text(
-                                'PDF',
-                                style: TextStyle(
-                                    color: themeColor,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            .02),
-                              ),
-                              white,
-                              .06,
-                              20),
-                        ],
-                      ),
-                    ),
-                    // Spacer(),
-                  ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+                DashboardDetailsCardForMobile(
+                    bgcolor: white,
+                        title: 'Customers Details',
+                        text1: 'Total Customers',
+                        value1: '$totalCustomers',
+                        text2: 'Active Customers',
+                        value2: '$activedOrders',
+                        text3: 'Delivered Customers',
+                        value3: '$deliverdOrders',
+                        text4: 'New Customers',
+                        value4: '$pendingOrders',
+                        progess1: 20,
+                        totalprogress1: 100,
+                        progess2: 50,
+                        totalprogress2: 100,
+                        progess3: 10,
+                        totalprogress3: 100,
+                        progess4: 50,
+                        totalprogress4: 100),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+                PayrollCardForMobile(
+                  bgcolor: white,
+                  title: 'PayRoll',
+                  filter: 'Filter by da',
+                  text1: 'Total Payroll',
+                  value1: '1999900 MNT',
+                  progess1: 60,
+                  totalprogress1: 100,
+                  totalDrivers: '98',
                 ),
-              ),
-            )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+                DashboardDetailsCardForMobile(
+                    bgcolor: white,
+                        title: 'Drivers Details',
+                        text1: 'Total Drivers',
+                        value1: '$totalDrivers',
+                        text2: 'Active Drivers',
+                        value2: '$activeDrivers',
+                        text3: 'Pending Drivers',
+                        value3: '$pendingDrivers',
+                        text4: 'Deactive Drivers',
+                        value4: '$rejectedDrivers',
+                        progess1: 20,
+                        totalprogress1: 100,
+                        progess2: 50,
+                        totalprogress2: 100,
+                        progess3: 10,
+                        totalprogress3: 100,
+                        progess4: 50,
+                        totalprogress4: 100
+                    ),
+              ],
+            ),
+            // Expanded(
+            //   child: Container(
+            //     // width: double.infinity,
+            //     height: MediaQuery.of(context).size.height * .1,
+            //     decoration: BoxDecoration(
+            //         color: themeColor, borderRadius: BorderRadius.circular(10)),
+            //     child: Row(
+            //       children: [
+            //         // Spacer(
+            //         //   flex: 1,
+            //         // ),
+            //         Padding(
+            //           padding: const EdgeInsets.symmetric(horizontal:8.0,vertical: 15),
+            //           child: inputField(context, "", null, null, null),
+            //         ),
+            //         // Spacer(),
+            //         iconContainerFormobile(
+            //             context,
+            //             Text(
+            //               'Filter by Date',
+            //               style: TextStyle(color: themeColor, fontSize: 9),
+            //             ),
+            //             white,
+            //             .15,
+            //             20),
+            //         // Spacer(flex: 9),
+            //         Expanded(
+            //           // width: MediaQuery.of(context).size.width * .3,
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //             children: [
+            //               iconContainerFormobile(
+            //                   context,
+            //                   Text(
+            //                     'Copy',
+            //                     style: TextStyle(
+            //                         color: themeColor,
+            //                         fontSize:
+            //                             MediaQuery.of(context).size.width *
+            //                                 .02),
+            //                   ),
+            //                   white,
+            //                   .06,
+            //                   20),
+            //               iconContainerFormobile(
+            //                   context,
+            //                   Text(
+            //                     'CSV',
+            //                     style: TextStyle(
+            //                         color: themeColor,
+            //                         fontSize:
+            //                             MediaQuery.of(context).size.width *
+            //                                 .02),
+            //                   ),
+            //                   white,
+            //                   .06,
+            //                   20),
+            //               iconContainerFormobile(
+            //                   context,
+            //                   Text(
+            //                     'Excel',
+            //                     style: TextStyle(
+            //                         color: themeColor,
+            //                         fontSize:
+            //                             MediaQuery.of(context).size.width *
+            //                                 .02),
+            //                   ),
+            //                   white,
+            //                   .06,
+            //                   20),
+            //               iconContainerFormobile(
+            //                   context,
+            //                   Text(
+            //                     'PDF',
+            //                     style: TextStyle(
+            //                         color: themeColor,
+            //                         fontSize:
+            //                             MediaQuery.of(context).size.width *
+            //                                 .02),
+            //                   ),
+            //                   white,
+            //                   .06,
+            //                   20),
+            //             ],
+            //           ),
+            //         ),
+            //         // Spacer(),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
@@ -303,8 +456,8 @@ class DashboardStatCardForMobile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: MediaQuery.of(context).size.height * .17,
-        width: MediaQuery.of(context).size.width / 3,
+        height: MediaQuery.of(context).size.height * .13,
+        width: MediaQuery.of(context).size.width / 2.7,
         decoration: BoxDecoration(
             color: bgcolor,
             borderRadius:
@@ -622,7 +775,7 @@ class DashboardDetailsCardForMobile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
         height: MediaQuery.of(context).size.height * .27,
-        width: MediaQuery.of(context).size.width * .42,
+        width: MediaQuery.of(context).size.width *.8,
         decoration: BoxDecoration(
             color: white,
             borderRadius:
@@ -824,7 +977,7 @@ class PayrollCardForMobile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
         height: MediaQuery.of(context).size.height * .27,
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width*.8,
         decoration: BoxDecoration(
             color: white,
             borderRadius: BorderRadius.circular(20),
@@ -836,6 +989,7 @@ class PayrollCardForMobile extends StatelessWidget {
                   blurRadius: 2)
             ]),
         child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -849,8 +1003,8 @@ class PayrollCardForMobile extends StatelessWidget {
                           fontSize: MediaQuery.of(context).size.width * .015),
                     ),
                     themeColor,
-                    .2,
-                    .05),
+                    .18,
+                    .04),
                 iconContainer(
                     context,
                     Text(
@@ -860,11 +1014,11 @@ class PayrollCardForMobile extends StatelessWidget {
                           fontSize: MediaQuery.of(context).size.width * .015),
                     ),
                     themeColor,
-                    .1,
-                    .05),
+                    .12,
+                    .04),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * .02),
+            SizedBox(height: MediaQuery.of(context).size.height * .04),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -934,57 +1088,57 @@ class PayrollCardForMobile extends StatelessWidget {
                 Spacer(),
               ],
             ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                iconContainerFormobile(
-                    context,
-                    Text(
-                      'Copy',
-                      style: TextStyle(
-                          color: white,
-                          fontSize: MediaQuery.of(context).size.width / 50),
-                    ),
-                    themeColor,
-                    .1,
-                    20),
-                iconContainerFormobile(
-                    context,
-                    Text(
-                      'CSV',
-                      style: TextStyle(
-                          color: white,
-                          fontSize: MediaQuery.of(context).size.width / 50),
-                    ),
-                    themeColor,
-                    .1,
-                    20),
-                iconContainerFormobile(
-                    context,
-                    Text(
-                      'Excel',
-                      style: TextStyle(
-                          color: white,
-                          fontSize: MediaQuery.of(context).size.width / 50),
-                    ),
-                    themeColor,
-                    .1,
-                    20),
-                iconContainerFormobile(
-                    context,
-                    Text(
-                      'PDF',
-                      style: TextStyle(
-                          color: white,
-                          fontSize: MediaQuery.of(context).size.width / 50),
-                    ),
-                    themeColor,
-                    .1,
-                    20),
-              ],
-            ),
-            Spacer(),
+            // Spacer(),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     iconContainerFormobile(
+            //         context,
+            //         Text(
+            //           'Copy',
+            //           style: TextStyle(
+            //               color: white,
+            //               fontSize: MediaQuery.of(context).size.width / 50),
+            //         ),
+            //         themeColor,
+            //         .1,
+            //         20),
+            //     iconContainerFormobile(
+            //         context,
+            //         Text(
+            //           'CSV',
+            //           style: TextStyle(
+            //               color: white,
+            //               fontSize: MediaQuery.of(context).size.width / 50),
+            //         ),
+            //         themeColor,
+            //         .1,
+            //         20),
+            //     iconContainerFormobile(
+            //         context,
+            //         Text(
+            //           'Excel',
+            //           style: TextStyle(
+            //               color: white,
+            //               fontSize: MediaQuery.of(context).size.width / 50),
+            //         ),
+            //         themeColor,
+            //         .1,
+            //         20),
+            //     iconContainerFormobile(
+            //         context,
+            //         Text(
+            //           'PDF',
+            //           style: TextStyle(
+            //               color: white,
+            //               fontSize: MediaQuery.of(context).size.width / 50),
+            //         ),
+            //         themeColor,
+            //         .1,
+            //         20),
+            //   ],
+            // ),
+            // Spacer(),
           ],
         ),
       ),

@@ -3,17 +3,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:gylac_dashboard/Utils/widget.dart';
 
-import '../Utils/widget.dart';
 
-class ReviewsScreen extends StatefulWidget {
-  const ReviewsScreen({Key? key}) : super(key: key);
+class ReviewsScreenMobile extends StatefulWidget {
+  const ReviewsScreenMobile({Key? key}) : super(key: key);
 
   @override
-  State<ReviewsScreen> createState() => _ReviewsScreenState();
+  State<ReviewsScreenMobile> createState() => _ReviewsScreenMobileState();
 }
 
-class _ReviewsScreenState extends State<ReviewsScreen> {
+class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
   // double rating = 3.5;
   CollectionReference reviewsStream =
       FirebaseFirestore.instance.collection('feedback');
@@ -31,7 +31,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                   Text(
                     'Review',
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * .04,
+                      fontSize: MediaQuery.of(context).size.height * .025,
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
@@ -43,58 +43,12 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  inputFieldCircular(context, 'Search here', null, null,
-                      Icon(Icons.search), (value) {}),
+                  inputFieldCircularMobile(context, 'Search here', null, null,
+                      Icon(Icons.search,size: 10,), (value) {}),
                   Spacer(
                     flex: 10,
                   ),
-                  iconContainerWithtext(
-                      context,
-                      Image.asset(
-                        'asset/DashboardIcons/Vector.png',
-                        height: MediaQuery.of(context).size.height * .035,
-                      ),
-                      'PUBLISH',
-                      Colors.green.shade100,
-                      Colors.green,
-                      .08,
-                      .06),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  iconContainerWithtext(
-                      context,
-                      Image.asset('asset/DashboardIcons/x-circle 1.png'),
-                      'DELETE',
-                      Colors.red.shade100,
-                      Colors.red,
-                      .08,
-                      .06),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  iconContainerWithdoubleIcon(
-                      context,
-                      Image.asset('asset/DashboardIcons/filter.png'),
-                      'Filter',
-                      Colors.white,
-                      Colors.black,
-                      .08,
-                      .06,
-                      Icon(
-                        Icons.keyboard_arrow_down_outlined,
-                        color: Colors.deepOrange,
-                      )),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Image.asset(
-                    'asset/DashboardIcons/refreshs.png',
-                    width: MediaQuery.of(context).size.width * .03,
-                  ),
-                  Spacer(
-                    flex: 1,
-                  ),
+              
                 ],
               ),
             ),

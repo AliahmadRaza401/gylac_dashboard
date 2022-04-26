@@ -75,8 +75,7 @@ class _AddTopRatedState extends State<AddTopRated> {
     final message = Message()
       ..from = Address(username, 'My email')
       ..recipients.add('b-23658@student.usa.edu.pk')
-      ..ccRecipients
-          .addAll(['b-23658@student.usa.edu.pk', 'b-23658@student.usa.edu.pk'])
+      ..ccRecipients.addAll(['b-23658@student.usa.edu.pk', 'b-23658@student.usa.edu.pk'])
       ..bccRecipients.add(Address('b-23658@student.usa.edu.pk'))
       ..subject = 'Test Dart Mailer library :: 😀 :: ${DateTime.now()}'
       ..text = 'This is the plain text.\nThis is line 2 of the text part.'
@@ -119,8 +118,8 @@ class _AddTopRatedState extends State<AddTopRated> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('asset/DashboardIcons/Admin Panel 2@3x.png'),
-                fit: BoxFit.fitWidth)),
-        child: Row(
+                fit: BoxFit.fitHeight)),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Row(
@@ -128,9 +127,9 @@ class _AddTopRatedState extends State<AddTopRated> {
             //     Icon(Icons.arrow_back),
             //   ],
             // ),
-            Column(
+            Row(
               children: [
-                Spacer(flex: 2),
+                // Spacer(flex: 2),
                 TopRatedCard(
                     orderName: orderName,
                     details: parcel,
@@ -140,10 +139,14 @@ class _AddTopRatedState extends State<AddTopRated> {
                     rating: rating == '' ? 0 : double.parse(rating),
                     vehicletype: vehicleType.toUpperCase(),
                     verhicleImg: ''),
-                Spacer(flex: 1),
+                // Spacer(flex: 1),
               ],
             ),
-            infoContainer()
+            Row(
+              children: [
+                infoContainer(),
+              ],
+            )
           ],
         ),
       ),
@@ -180,47 +183,72 @@ class _AddTopRatedState extends State<AddTopRated> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      "Enter information",
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * .03,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          "Enter information",
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * .03,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    usernameField(orderNameController, 'Order', (value) {
-                      setState(() {
-                        orderName = value;
-                      });
-                    }),
-                    usernameField(parcelController, 'Parcel', (value) {
-                      setState(() {
-                        parcel = value;
-                      });
-                    }),
-                    usernameField(driverNameController, 'Driver name', (value) {
-                      setState(() {
-                        drvierName = value;
-                      });
-                    }),
-                    usernameField(ratingController, 'Rating', (value) {
-                      setState(() {
-                        rating = value;
-                      });
-                    }),
-                    usernameField(priceController, 'Price', (value) {
-                      setState(() {
-                        price = value;
-                      });
-                    }),
-                    usernameField(vehicleTypeController, 'Vehicle type',
-                        (value) {
-                      setState(() {
-                        vehicleType = value;
-                      });
-                    }),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        usernameField(orderNameController, 'Order', (value) {
+                          setState(() {
+                            orderName = value;
+                          });
+                        }),
+                        usernameField(parcelController, 'Parcel', (value) {
+                          setState(() {
+                            parcel = value;
+                          });
+                        }),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                    usernameField(
-                        imageLinkController, 'Image link', (value) {}),
+                      children: [
+                        usernameField(driverNameController, 'Driver name', (value) {
+                          setState(() {
+                            drvierName = value;
+                          });
+                        }),
+                        usernameField(ratingController, 'Rating', (value) {
+                          setState(() {
+                            rating = value;
+                          });
+                        }),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                      children: [
+                        usernameField(priceController, 'Price', (value) {
+                          setState(() {
+                            price = value;
+                          });
+                        }),
+                        usernameField(vehicleTypeController, 'Vehicle type',
+                            (value) {
+                          setState(() {
+                            vehicleType = value;
+                          });
+                        }),
+                      ],
+                    ),
+
+                    Row(
+                      children: [
+                        usernameField(
+                            imageLinkController, 'Image link', (value) {}),
+                      ],
+                    ),
                     // IconButton(onPressed: (){
                     //   getImage();
                     // }, icon: Icon(Icons.image_rounded)),

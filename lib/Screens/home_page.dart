@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, unused_element, dead_code, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, must_be_immutable, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:gylac_dashboard/Screens/Mobile/drivers_mobile.dart';
 import 'package:gylac_dashboard/Screens/Mobile/mobile_home.dart';
+import 'package:gylac_dashboard/Screens/Mobile/orders_mobile.dart';
+import 'package:gylac_dashboard/Screens/Mobile/review_mobile.dart';
+import 'package:gylac_dashboard/Screens/Mobile/top_rated_mobile.dart';
 import 'package:gylac_dashboard/Screens/dashBoard.dart';
 import 'package:gylac_dashboard/Screens/drivers.dart';
 import 'package:gylac_dashboard/Screens/mobile_view.dart';
@@ -30,7 +34,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget screens() {
     if (selectedIndex == 0) {
-
       return DashBoard();
     }
     if (selectedIndex == 1) {
@@ -42,16 +45,44 @@ class _HomePageState extends State<HomePage> {
     if (selectedIndex == 3) {
       return ReviewsScreen();
     }
-     if (selectedIndex == 4) {
+    if (selectedIndex == 4) {
       return TopRatedOrders();
     }
-     if (selectedIndex == 5) {
+    if (selectedIndex == 5) {
       // return TopRatedCard();
     }
     return Center(
       child: Text('Comming soon'),
     );
   }
+
+
+    Widget screensFormobile() {
+    if (selectedIndex == 0) {
+      return MobileDashBoard();
+    }
+    if (selectedIndex == 1) {
+      return DriversScreenForMobile();
+    }
+    if (selectedIndex == 2) {
+      return OrdersMobile();
+    }
+    if (selectedIndex == 3) {
+      return ReviewsScreenMobile();
+    }
+    if (selectedIndex == 4) {
+      return TopRatedOrdersMobile();
+    }
+    if (selectedIndex == 5) {
+      // return TopRatedCard();
+    }
+    return Center(
+      child: Text('Comming soon'),
+    );
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,31 +117,30 @@ class _HomePageState extends State<HomePage> {
           }
 
           // if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
-         return   Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: themeColor,
-                child: Row(
-                  children: [
-                    // Expanded(flex: 1, child: MobileSideBar()),
-                    Expanded(
-                        flex: 10,
-                        child: Container(
-                          color: Color.fromRGBO(255, 255, 255, 1),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: MobileHeader(),
-                              ),
-                              Expanded(flex: 6, child: MobileDashBoard())
-                            ],
-                          ),
-                        ))
-                  ],
-                ));
+          return Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: themeColor,
+              child: Row(
+                children: [
+                  Expanded(flex: 1, child: sideBarMobile()),
+                  Expanded(
+                      flex: 8,
+                      child: Container(
+                        color: Color.fromRGBO(255, 255, 255, 1),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: MobileHeader(),
+                            ),
+                            Expanded(flex: 6, child: screensFormobile())
+                          ],
+                        ),
+                      ))
+                ],
+              ));
           // }
-
 
           // return Container(color: Colors.purple);
         },
@@ -118,54 +148,52 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget mobileSidebar() {
+    return Container(
+      // color:Colors.amber,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(logo), fit: BoxFit.cover)),
+            // width: double.infinity,
+            height: MediaQuery.of(context).size.height / 7,
+          ),
+          Expanded(
+            child: Expanded(
+                child: Container(
+                    width: double.infinity,
+                    color: Colors.black,
+                    child: ListView.builder(
+                        itemCount: sideItems.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex = index;
+                                });
+                              },
+                              child: dashboardSelectionForMobile(
+                                sideItems[index]['icon'],
+                                selectedIndex == index
+                                    ? sideItems[index]['activeColor']
+                                    : sideItems[index]['incativeColor'],
+                                selectedIndex == index
+                                    ? sideItems[index]['text']
+                                    : '',
+                                selectedIndex == index
+                                    ? sideItems[index]['bgActive']
+                                    : sideItems[index]['bgInactive'],
+                              ));
+                        }))),
+          )
+        ],
+      ),
+    );
+  }
 
-Widget mobileSidebar(){
-   return Container(
-        // color:Colors.amber,
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(logo), fit: BoxFit.cover)),
-              // width: double.infinity,
-              height: MediaQuery.of(context).size.height / 7,
-            ),
-            Expanded(
-                child:  Expanded(
-              child: Container(
-                  width: double.infinity,
-                  color: Colors.black,
-                  child: ListView.builder(
-                      itemCount: sideItems.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = index;
-                              });
-                            },
-                            child: dashboardSelectionForMobile(
-                              sideItems[index]['icon'],
-                              selectedIndex == index
-                                  ? sideItems[index]['activeColor']
-                                  : sideItems[index]['incativeColor'],
-                              selectedIndex == index
-                                  ? sideItems[index]['text']
-                                  : '',
-                              selectedIndex == index
-                                  ? sideItems[index]['bgActive']
-                                  : sideItems[index]['bgInactive'],
-                            )
-                            );
-                      }))),
-            )
-          ],
-        ),
-      );
-}
-
- dashboardSelectionForMobile(image, imagecolor, text, bgColor) {
+  dashboardSelectionForMobile(image, imagecolor, text, bgColor) {
     return Container(
       height: MediaQuery.of(context).size.height * .1,
       color: bgColor,
@@ -189,6 +217,7 @@ Widget mobileSidebar(){
       ),
     );
   }
+
   int index = 0;
   Widget sideBar() {
     return Container(
@@ -226,19 +255,65 @@ Widget mobileSidebar(){
                               selectedIndex == index
                                   ? sideItems[index]['bgActive']
                                   : sideItems[index]['bgInactive'],
-                            )
-                            );
+                            ));
                       }))),
 
-            // Text('Gyalc Dashboard\n©All Rights Reserved\n\nby Peterdraw',style: TextStyle(
-            //   color: Color(0xff6B6B6B)
-            // ),)
+          // Text('Gyalc Dashboard\n©All Rights Reserved\n\nby Peterdraw',style: TextStyle(
+          //   color: Color(0xff6B6B6B)
+          // ),)
         ],
       ),
     );
   }
 
-  
+
+
+  Widget sideBarMobile() {
+    return Container(
+      // color:Colors.amber,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(logo), fit: BoxFit.cover)),
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * .1,
+          ),
+          Expanded(
+              child: Container(
+                  width: double.infinity,
+                  color: Colors.black,
+                  child: ListView.builder(
+                      itemCount: sideItems.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedIndex = index;
+                              });
+                            },
+                            child: dashboardSelection(
+                              sideItems[index]['icon'],
+                              selectedIndex == index
+                                  ? sideItems[index]['activeColor']
+                                  : sideItems[index]['incativeColor'],
+                              selectedIndex == index
+                                  ? sideItems[index]['text']
+                                  : '',
+                              selectedIndex == index
+                                  ? sideItems[index]['bgActive']
+                                  : sideItems[index]['bgInactive'],
+                            ));
+                      }))),
+
+          // Text('Gyalc Dashboard\n©All Rights Reserved\n\nby Peterdraw',style: TextStyle(
+          //   color: Color(0xff6B6B6B)
+          // ),)
+        ],
+      ),
+    );
+  }
 
   int selectedIndex = 0;
   List sideItems = [
@@ -275,45 +350,45 @@ Widget mobileSidebar(){
       'bgActive': themeColor
     },
     {
-      'icon': 'asset/DashboardIcons/notifications.png',
-      'text': 'Notifications',
+      'icon': 'asset/DashboardIcons/delivery-truck.png',
+      'text': 'Top Rated',
       'activeColor': purpleDashboard,
       'incativeColor': Colors.white,
       'bgInactive': Colors.transparent,
       'bgActive': themeColor
     },
-    {
-      'icon': 'asset/DashboardIcons/doc.png',
-      'text': 'Docs',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/document.png',
-      'text': 'Document',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/pinloction.png',
-      'text': 'PinLocation',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/setting.png',
-      'text': 'Settings',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
+    // {
+    //   'icon': 'asset/DashboardIcons/doc.png',
+    //   'text': 'Docs',
+    //   'activeColor': purpleDashboard,
+    //   'incativeColor': Colors.white,
+    //   'bgInactive': Colors.transparent,
+    //   'bgActive': themeColor
+    // },
+    // {
+    //   'icon': 'asset/DashboardIcons/document.png',
+    //   'text': 'Document',
+    //   'activeColor': purpleDashboard,
+    //   'incativeColor': Colors.white,
+    //   'bgInactive': Colors.transparent,
+    //   'bgActive': themeColor
+    // },
+    // {
+    //   'icon': 'asset/DashboardIcons/pinloction.png',
+    //   'text': 'PinLocation',
+    //   'activeColor': purpleDashboard,
+    //   'incativeColor': Colors.white,
+    //   'bgInactive': Colors.transparent,
+    //   'bgActive': themeColor
+    // },
+    // {
+    //   'icon': 'asset/DashboardIcons/setting.png',
+    //   'text': 'Settings',
+    //   'activeColor': purpleDashboard,
+    //   'incativeColor': Colors.white,
+    //   'bgInactive': Colors.transparent,
+    //   'bgActive': themeColor
+    // },
   ];
 
   dashboardSelection(image, imagecolor, text, bgColor) {
@@ -340,8 +415,6 @@ Widget mobileSidebar(){
       ),
     );
   }
-
- 
 
   Widget headerWidget() {
     return Container(
@@ -929,84 +1002,78 @@ class PayrollCard extends StatelessWidget {
   }
 }
 
-
-
-
-   
-
 //  int selectedIndex = 0;
-  List sideItems = [
-    {
-      'icon': 'asset/DashboardIcons/ic_dashboard.png',
-      'text': 'Dashboard',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/profile.png',
-      'text': 'Users',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/Group.png',
-      'text': 'Orders',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/profileGroup.png',
-      'text': 'Reviews',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/notifications.png',
-      'text': 'Notifications',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/doc.png',
-      'text': 'Docs',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/document.png',
-      'text': 'Document',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/pinloction.png',
-      'text': 'PinLocation',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-    {
-      'icon': 'asset/DashboardIcons/setting.png',
-      'text': 'Settings',
-      'activeColor': purpleDashboard,
-      'incativeColor': Colors.white,
-      'bgInactive': Colors.transparent,
-      'bgActive': themeColor
-    },
-  ];
- 
+List sideItems = [
+  {
+    'icon': 'asset/DashboardIcons/ic_dashboard.png',
+    'text': 'Dashboard',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+  {
+    'icon': 'asset/DashboardIcons/profile.png',
+    'text': 'Users',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+  {
+    'icon': 'asset/DashboardIcons/Group.png',
+    'text': 'Orders',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+  {
+    'icon': 'asset/DashboardIcons/profileGroup.png',
+    'text': 'Reviews',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+  {
+    'icon': 'asset/DashboardIcons/notifications.png',
+    'text': 'Notifications',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+  {
+    'icon': 'asset/DashboardIcons/doc.png',
+    'text': 'Docs',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+  {
+    'icon': 'asset/DashboardIcons/document.png',
+    'text': 'Document',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+  {
+    'icon': 'asset/DashboardIcons/pinloction.png',
+    'text': 'PinLocation',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+  {
+    'icon': 'asset/DashboardIcons/setting.png',
+    'text': 'Settings',
+    'activeColor': purpleDashboard,
+    'incativeColor': Colors.white,
+    'bgInactive': Colors.transparent,
+    'bgActive': themeColor
+  },
+];

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_new, sized_box_for_whitespace, prefer_is_empty, avoid_unnecessary_containers
 
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gylac_dashboard/Utils/color.dart';
@@ -290,43 +292,65 @@ class _DriversScreenForMobileState extends State<DriversScreenForMobile>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * .04,
-                height: MediaQuery.of(context).size.height * .08,
+                width: MediaQuery.of(context).size.width * .03,
+                height: MediaQuery.of(context).size.height * .02,
                 decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(10)),
+                    color: Colors.grey, borderRadius: BorderRadius.circular(1)),
                 // child: Image.network(profileImage),
               ),
               Container(
-                  //  color: Colors.blue,
-                  alignment: Alignment.bottomLeft,
-                  width: MediaQuery.of(context).size.width * .17,
-                  child: mytext(context, email)),
-              Container(
-                  alignment: Alignment.bottomLeft,
-
-                  //  color: Colors.red,
-                  width: MediaQuery.of(context).size.width * .12,
-                  child: mytext(context, userName)),
-              Container(
-                  alignment: Alignment.bottomLeft,
-
-                  //  color: Colors.amber,
-                  width: MediaQuery.of(context).size.width * .12,
-                  child: mytext(context, mobile)),
-              Container(
-                  //  color: Colors.pink,
+                  // color: Colors.blue,
                   alignment: Alignment.bottomLeft,
                   width: MediaQuery.of(context).size.width * .15,
-                  child: mytext(context, companyName)),
-              myButton(context, Text('Vehicle Detail'), () {
-                shwovehicleDetails(vehicleimage, enginNumber, design,
+                  child: mytextForMobile(
+                    context,
+                    email,
+                  )),
+              Container(
+                  alignment: Alignment.bottomLeft,
+                  // color: Colors.red,
+                  width: MediaQuery.of(context).size.width * .1,
+                  child: mytextForMobile(context, userName)),
+              Container(
+                  alignment: Alignment.bottomLeft,
+                  // color: Colors.amber,
+                  width: MediaQuery.of(context).size.width * .1,
+                  child: mytextForMobile(context, mobile)),
+              Container(
+                  // color: Colors.pink,
+                  alignment: Alignment.bottomLeft,
+                  width: MediaQuery.of(context).size.width * .12,
+                  child: mytextForMobile(context, companyName)),
+
+                  SizedBox(
+                    height: 15,
+                    child: ElevatedButton(onPressed: (){
+shwovehicleDetails(vehicleimage, enginNumber, design,
                     chassiNumber, companyName);
-              }, .1, .05),
+                    }, 
+                    
+                     style: ElevatedButton.styleFrom(
+                primary: themeColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3),
+                )),child: Text(
+                     'Details',
+                      style: TextStyle(fontSize:9),
+                    ), ),
+                  ),
+              // myButtonMobile(
+              //     context,
+              //     Text(
+              //       'Details',
+              //       style: TextStyle(fontSize:10),
+              //     ), () {
+              //   shwovehicleDetails(vehicleimage, enginNumber, design,
+              //       chassiNumber, companyName);
+              // }, .1, .03),
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  height: MediaQuery.of(context).size.height * .05,
-                  width: MediaQuery.of(context).size.width * .1,
+                  height: MediaQuery.of(context).size.height * .03,
+                  width: MediaQuery.of(context).size.width * .12,
                   decoration: BoxDecoration(
                       color: Color(0xffE3F8E5),
                       border: Border.all(color: Colors.grey.withOpacity(.3)),
@@ -334,7 +358,10 @@ class _DriversScreenForMobileState extends State<DriversScreenForMobile>
                   child: Center(
                       child: Text(
                     status,
-                    style: TextStyle(color: Color.fromARGB(255, 25, 43, 27)),
+                    
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: Color.fromARGB(255, 25, 43, 27)),
                   ))),
               Container(
                 width: MediaQuery.of(context).size.width * .02,
@@ -388,12 +415,13 @@ class _DriversScreenForMobileState extends State<DriversScreenForMobile>
                   image: DecorationImage(
                       image:
                           AssetImage('asset/DashboardIcons/red_circle.png'))),
-              child:
-               FadeInImage(image: NetworkImage(vehicleimage), placeholder: AssetImage('asset/car.png')
-              // CachedNetworkImage(
-              //   imageUrl: vehicleimage,
-              //   // scale: 4,
-              ),
+              child: FadeInImage(
+                  image: NetworkImage(vehicleimage),
+                  placeholder: AssetImage('asset/car.png')
+                  // CachedNetworkImage(
+                  //   imageUrl: vehicleimage,
+                  //   // scale: 4,
+                  ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
