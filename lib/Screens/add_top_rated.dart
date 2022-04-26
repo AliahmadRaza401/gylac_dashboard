@@ -109,6 +109,9 @@ class _AddTopRatedState extends State<AddTopRated> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      // ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -119,6 +122,11 @@ class _AddTopRatedState extends State<AddTopRated> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            // Row(
+            //   children: [
+            //     Icon(Icons.arrow_back),
+            //   ],
+            // ),
             Column(
               children: [
                 Spacer(flex: 2),
