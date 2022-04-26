@@ -3,6 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:gylac_dashboard/Screens/Mobile/create_top_mobile.dart';
+import 'package:gylac_dashboard/Screens/Mobile/top_card_mobile.dart';
 import 'package:gylac_dashboard/Screens/add_top_rated.dart';
 import 'package:gylac_dashboard/Screens/card_top_rated.dart';
 import 'package:gylac_dashboard/Utils/widget.dart';
@@ -117,9 +119,11 @@ class _TopRatedOrdersMobileState extends State<TopRatedOrdersMobile> {
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
                 ),
-                  myButton(context, Text('Create add',style: TextStyle(fontSize: 9),), () {
-                   Navigator.of(context).push(MaterialPageRoute(builder: ((context) => AddTopRated())));
-              }, .18, .03),
+                  myButton(context, Text('Create',style: TextStyle(
+                    fontSize: 9
+                  ),), () {
+                   Navigator.of(context).push(MaterialPageRoute(builder: ((context) => AddTopRatedMobile())));
+              }, .15, .03),
               ],
             ),
           ),
@@ -180,19 +184,11 @@ class _TopRatedOrdersMobileState extends State<TopRatedOrdersMobile> {
                         child: Center(
                           child: Text("Noting to show!"),
                         ))
-                    : GridView.builder(
-                        dragStartBehavior: DragStartBehavior.down,
-                        physics: BouncingScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 750,
-                            mainAxisExtent: 300,
-                            mainAxisSpacing: 1,
-                            crossAxisSpacing: .01,
-                            childAspectRatio: .01),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          return TopRatedCard(
+                    : 
+                    ListView.builder(
+                      itemCount:snapshot.data!.docs.length ,
+                      itemBuilder: (context,index){
+                          return  TopRatedCardMobile(
                             orderName: "${snapshot.data!.docs[index]['orderName']}",
                             details:  "${snapshot.data!.docs[index]['parcel']}",
                             driverImg : "",
@@ -202,7 +198,31 @@ class _TopRatedOrdersMobileState extends State<TopRatedOrdersMobile> {
                             vehicletype:  "${snapshot.data!.docs[index]['vehicleType']}",
                             verhicleImg:  "",
                             );
-                        });
+                      });
+                    
+                    // GridView.builder(
+                    //     dragStartBehavior: DragStartBehavior.down,
+                    //     physics: BouncingScrollPhysics(),
+                    //     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    //         maxCrossAxisExtent: 750,
+                    //         mainAxisExtent: 300,
+                    //         mainAxisSpacing: 1,
+                    //         crossAxisSpacing: .01,
+                    //         childAspectRatio: .01),
+                    //     shrinkWrap: true,
+                    //     itemCount: snapshot.data!.docs.length,
+                    //     itemBuilder: (context, index) {
+                    //       return TopRatedCardMobile(
+                    //         orderName: "${snapshot.data!.docs[index]['orderName']}",
+                    //         details:  "${snapshot.data!.docs[index]['parcel']}",
+                    //         driverImg : "",
+                    //         driverName : "${snapshot.data!.docs[index]['driverName']}",
+                    //         price:  "${snapshot.data!.docs[index]['price']}",
+                    //         rating:  double.parse(snapshot.data!.docs[index]['rating']),
+                    //         vehicletype:  "${snapshot.data!.docs[index]['vehicleType']}",
+                    //         verhicleImg:  "",
+                    //         );
+                    //     });
               },
             ),
           ),

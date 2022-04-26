@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gylac_dashboard/Screens/Mobile/top_card_mobile.dart';
 import 'package:gylac_dashboard/Screens/card_top_rated.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'package:mailer/mailer.dart';
@@ -9,16 +10,16 @@ import 'dart:html' as html;
 
 import 'package:mailer/smtp_server.dart';
 
-class AddTopRated extends StatefulWidget {
-  const AddTopRated({Key? key}) : super(key: key);
+class AddTopRatedMobile extends StatefulWidget {
+  const AddTopRatedMobile({Key? key}) : super(key: key);
 
   @override
-  State<AddTopRated> createState() => _AddTopRatedState();
+  State<AddTopRatedMobile> createState() => _AddTopRatedMobileState();
 }
 
 html.File? myImag;
 
-class _AddTopRatedState extends State<AddTopRated> {
+class _AddTopRatedMobileState extends State<AddTopRatedMobile> {
   getImage() async {
     final imageFile = await ImagePickerWeb.getImage(outputType: ImageType.file);
     print(imageFile!);
@@ -119,34 +120,24 @@ class _AddTopRatedState extends State<AddTopRated> {
             image: DecorationImage(
                 image: AssetImage('asset/DashboardIcons/Admin Panel 2@3x.png'),
                 fit: BoxFit.fitHeight)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Row(
             //   children: [
             //     Icon(Icons.arrow_back),
             //   ],
             // ),
-            Row(
-              children: [
-                // Spacer(flex: 2),
-                TopRatedCard(
-                    orderName: orderName,
-                    details: parcel,
-                    driverImg: 'abc.com',
-                    driverName: drvierName,
-                    price: price,
-                    rating: rating == '' ? 0 : double.parse(rating),
-                    vehicletype: vehicleType.toUpperCase(),
-                    verhicleImg: ''),
-                // Spacer(flex: 1),
-              ],
-            ),
-            Row(
-              children: [
-                infoContainer(),
-              ],
-            )
+            TopRatedCardMobile(
+                orderName: orderName,
+                details: parcel,
+                driverImg: 'abc.com',
+                driverName: drvierName,
+                price: price,
+                rating: rating == '' ? 0 : double.parse(rating),
+                vehicletype: vehicleType.toUpperCase(),
+                verhicleImg: ''),
+            infoContainer()
           ],
         ),
       ),
@@ -171,122 +162,118 @@ class _AddTopRatedState extends State<AddTopRated> {
         //     ),
         //   ],
         // ),
-        child: Form(
-          // key: _formKey,
+        child: Container(
+          width: MediaQuery.of(context).size.width * .15,
+          height: MediaQuery.of(context).size.height * .8,
+          color: Colors.amber,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width * .3,
-                height: MediaQuery.of(context).size.height * .8,
-                // color: Colors.amber,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Enter information",
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Enter information",
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * .03,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  usernameFieldMobile(orderNameController, 'Order', (value) {
+                    setState(() {
+                      orderName = value;
+                    });
+                  }),
+                  usernameFieldMobile(parcelController, 'Parcel', (value) {
+                    setState(() {
+                      parcel = value;
+                    });
+                  }),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                children: [
+                  usernameFieldMobile(driverNameController, 'Driver name', (value) {
+                    setState(() {
+                      drvierName = value;
+                    });
+                  }),
+                  usernameFieldMobile(ratingController, 'Rating', (value) {
+                    setState(() {
+                      rating = value;
+                    });
+                  }),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                children: [
+                  usernameFieldMobile(priceController, 'Price', (value) {
+                    setState(() {
+                      price = value;
+                    });
+                  }),
+                  usernameFieldMobile(vehicleTypeController, 'Vehicle type',
+                      (value) {
+                    setState(() {
+                      vehicleType = value;
+                    });
+                  }),
+                ],
+              ),
+
+              Row(
+                
+
+                children: [
+                  SizedBox(width: MediaQuery.of(context).size.width *.06,),
+                  usernameFieldMobile(
+                      imageLinkController, 'Image link', (value) {}),
+                ],
+              ),
+              // IconButton(onPressed: (){
+              //   getImage();
+              // }, icon: Icon(Icons.image_rounded)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .28,
+                height: MediaQuery.of(context).size.height * .05,
+                child: isloading == true
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ElevatedButton(
+                        onPressed: () {
+                          addToTopRated(
+                              orderName,
+                              parcel,
+                              drvierName,
+                              rating,
+                              price,
+                              vehicleType,
+                              imageLinkController.text);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Color(0xffFF8A00),
+                            onPrimary: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        child: Text(
+                          "Submit",
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * .03,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
+                            fontFamily: "Poppins",
                           ),
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        usernameField(orderNameController, 'Order', (value) {
-                          setState(() {
-                            orderName = value;
-                          });
-                        }),
-                        usernameField(parcelController, 'Parcel', (value) {
-                          setState(() {
-                            parcel = value;
-                          });
-                        }),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                      children: [
-                        usernameField(driverNameController, 'Driver name', (value) {
-                          setState(() {
-                            drvierName = value;
-                          });
-                        }),
-                        usernameField(ratingController, 'Rating', (value) {
-                          setState(() {
-                            rating = value;
-                          });
-                        }),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                      children: [
-                        usernameField(priceController, 'Price', (value) {
-                          setState(() {
-                            price = value;
-                          });
-                        }),
-                        usernameField(vehicleTypeController, 'Vehicle type',
-                            (value) {
-                          setState(() {
-                            vehicleType = value;
-                          });
-                        }),
-                      ],
-                    ),
-
-                    Row(
-                      children: [
-                        usernameField(
-                            imageLinkController, 'Image link', (value) {}),
-                      ],
-                    ),
-                    // IconButton(onPressed: (){
-                    //   getImage();
-                    // }, icon: Icon(Icons.image_rounded)),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .28,
-                      height: MediaQuery.of(context).size.height * .05,
-                      child: isloading == true
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : ElevatedButton(
-                              onPressed: () {
-                                addToTopRated(
-                                    orderName,
-                                    parcel,
-                                    drvierName,
-                                    rating,
-                                    price,
-                                    vehicleType,
-                                    imageLinkController.text);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  primary: Color(0xffFF8A00),
-                                  onPrimary: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                              child: Text(
-                                "Submit",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Poppins",
-                                ),
-                              ),
-                            ),
-                    ),
-                  ],
-                ),
+                      ),
               ),
             ],
           ),
@@ -295,10 +282,10 @@ class _AddTopRatedState extends State<AddTopRated> {
     );
   }
 
-  Widget usernameField(controller, placeHolder, function) {
+  Widget usernameFieldMobile(controller, placeHolder, function) {
     return Container(
         height: MediaQuery.of(context).size.height * .08,
-        width: MediaQuery.of(context).size.width * .3,
+        width: MediaQuery.of(context).size.width * .4,
         padding: EdgeInsets.all(10.0),
         child: TextFormField(
           controller: controller,

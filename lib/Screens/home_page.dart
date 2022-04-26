@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
 
     Widget screensFormobile() {
-    if (selectedIndex == 0) {
+    if (selectedIndex == 4) {
       return MobileDashBoard();
     }
     if (selectedIndex == 1) {
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
     if (selectedIndex == 3) {
       return ReviewsScreenMobile();
     }
-    if (selectedIndex == 4) {
+    if (selectedIndex == 0) {
       return TopRatedOrdersMobile();
     }
     if (selectedIndex == 5) {

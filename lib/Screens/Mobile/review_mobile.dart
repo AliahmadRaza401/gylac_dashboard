@@ -21,7 +21,7 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(5),
         child: Column(
           children: [
             Padding(
@@ -77,7 +77,7 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
                       : ListView(
                           children: snapshot.data!.docs
                               .map((DocumentSnapshot document) {
-                            return reviewRow(
+                            return reviewRowMobile(
                               document['orderId'],
                               document['driverName'],
                               '${document['reviewDate'].toDate()}',
@@ -108,7 +108,7 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
     );
   }
 
-  Widget reviewRow(
+  Widget reviewRowMobile(
     String orderID,
     String userName,
     String date,
@@ -120,7 +120,7 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
       child: Expanded(
         child: Container(
           // width: MediaQuery.of(context).size.width * .385,
-          height: MediaQuery.of(context).size.height * .15,
+          height: MediaQuery.of(context).size.height * .12,
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -142,7 +142,7 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
                         padding: const EdgeInsets.all(10),
                         child: Container(
                           width: MediaQuery.of(context).size.width * .05,
-                          height: MediaQuery.of(context).size.height * .1,
+                          height: MediaQuery.of(context).size.height * .05,
                           decoration: BoxDecoration(
                               color: Colors.grey,
                               borderRadius: BorderRadius.circular(10),
@@ -166,18 +166,18 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
                           '#' + orderID,
                           style: TextStyle(
                               fontSize:
-                                  MediaQuery.of(context).size.height * .025,
+                                  MediaQuery.of(context).size.height * .02,
                               color: Colors.orange),
                         ),
                         Text(
                           userName,
                           style: TextStyle(
                               fontSize:
-                                  MediaQuery.of(context).size.height * .018,
+                                  MediaQuery.of(context).size.height * .014,
                               color: Colors.black),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * .2,
+                          width: MediaQuery.of(context).size.width * .15,
                           child: Wrap(
                             children: [
                               Text(
@@ -187,7 +187,7 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
                                 style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
-                                            .025,
+                                            .01,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
@@ -203,14 +203,18 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex:2,
                 child: Wrap(
-                  children: [Text(review)],
+                  children: [Text(review,style: TextStyle(
+                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            .01,
+                  ),)],
                 ),
               ),
-              Spacer(
-                flex: 1,
-              ),
+              // Spacer(
+              //   flex: 1,
+              // ),
               Expanded(
                 flex: 2,
                 child: Row(
@@ -223,17 +227,17 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
                           '$rating',
                           style: TextStyle(
                               fontSize:
-                                  MediaQuery.of(context).size.width * .015,
+                                  MediaQuery.of(context).size.width * .02,
                               fontWeight: FontWeight.bold),
                         ),
                         RatingBar.builder(
-                          itemSize: MediaQuery.of(context).size.width * .012,
+                          itemSize: MediaQuery.of(context).size.width * .015,
                           initialRating: rating,
                           minRating: 1,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
                           itemCount: 5,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 1),
                           itemBuilder: (context, _) => Icon(
                             Icons.star,
                             color: Color(0xffFF8A00),
@@ -250,20 +254,18 @@ class _ReviewsScreenMobileState extends State<ReviewsScreenMobile> {
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 30),
+                              padding: const EdgeInsets.only(right: 0),
                               child: Image.asset(
                                 'asset/DashboardIcons/Vector.png',
                                 height:
                                     MediaQuery.of(context).size.height * .025,
                               ),
                             ),
-                            SizedBox(
-                              width: 20,
-                            ),
+                           
                             Padding(
-                                padding: const EdgeInsets.only(right: 30),
+                                padding: const EdgeInsets.only(right: 5,left: 5),
                                 child: Image.asset(
-                                    'asset/DashboardIcons/x-circle 1.png')),
+                                    'asset/DashboardIcons/x-circle 1.png',width: 15,)),
                           ],
                         ),
                       ],

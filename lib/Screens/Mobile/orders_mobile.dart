@@ -430,20 +430,21 @@ Stream<QuerySnapshot> searchData(String string) async* {
                       child: mytextForMobile(context, amount)),
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
-                      height: MediaQuery.of(context).size.height * .05,
-                      width: MediaQuery.of(context).size.width * .1,
+                      height: MediaQuery.of(context).size.height * .03,
+                      width: MediaQuery.of(context).size.width * .12,
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: Color(0xffE3F8E5),
                           border:
                               Border.all(color: Colors.grey.withOpacity(.3)),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Center(
-                          child: Text(
+                          borderRadius: BorderRadius.circular(3)),
+                      child: Text(
                         pending,
-                        style: TextStyle(color: Color(0xff56C662)),
-                      ))),
+                        
+                        style: TextStyle(color: Color(0xff56C662),fontSize: 9),
+                      )),
                   Container(
-                    width: MediaQuery.of(context).size.width * .02,
+                    width: MediaQuery.of(context).size.width * .03,
                     height: MediaQuery.of(context).size.width * .01,
                     // color: Colors.amber,
                     child: pending == 'pending'
