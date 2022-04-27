@@ -13,8 +13,7 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
-  final ordersStream =
-      FirebaseFirestore.instance.collection('orders');
+  final ordersStream = FirebaseFirestore.instance.collection('orders');
   FirebaseFirestore db = FirebaseFirestore.instance;
   bool isloading = false;
   addToTopRated(String deliveryName, String driverId, String parcel,
@@ -91,23 +90,23 @@ class _OrdersState extends State<Orders> {
   //   // .onError((e){
   //   //   print(e.toString());
   // }
-Stream<QuerySnapshot> stream() async* {
-  var _stream = FirebaseFirestore.instance.collection('orders').snapshots();
-  yield* _stream;
-}
+  Stream<QuerySnapshot> stream() async* {
+    var _stream = FirebaseFirestore.instance.collection('orders').snapshots();
+    yield* _stream;
+  }
 
+  Stream<QuerySnapshot> searchData(String string) async* {
+    var firestore = FirebaseFirestore.instance;
+    var _search = firestore
+        .collection('orders')
+        .where('pickupEmail', isEqualTo: string)
+        .snapshots();
 
-Stream<QuerySnapshot> searchData(String string) async* {
-  var firestore = FirebaseFirestore.instance;
-  var _search = firestore
-      .collection('orders')
-      .where('pickupEmail', isEqualTo: string)
-      .snapshots();
+    yield* _search;
+  }
 
-  yield* _search;
-}
   int i = 0;
- String search='';
+  String search = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,7 +135,7 @@ Stream<QuerySnapshot> searchData(String string) async* {
                     context, 'Search here', null, null, Icon(Icons.search),
                     (value) {
                   setState(() {
-                    search=value;
+                    search = value;
                     // final ordersStream =
                     //     FirebaseFirestore.instance.collection('orders').where('pickupEmail',isEqualTo: value);
                   });
@@ -176,7 +175,7 @@ Stream<QuerySnapshot> searchData(String string) async* {
           Expanded(
             // padding: EdgeInsets.all(20),
             child: StreamBuilder<QuerySnapshot>(
-              stream: search==''?stream():searchData(search),
+              stream: search == '' ? stream() : searchData(search),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
@@ -469,7 +468,7 @@ Stream<QuerySnapshot> searchData(String string) async* {
           ),
         ),
         Positioned(
-            right: 0,
+            right: MediaQuery.of(context).size.width * .15,
             top: 2,
             child: myButton(
                 context,

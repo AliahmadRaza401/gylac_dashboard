@@ -157,8 +157,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
-                    child: inputFieldCircular(
-                        context, 'Search here', null, null, Icon(Icons.search),(value){}),
+                    child: inputFieldCircular(context, 'Search here', null,
+                        null, Icon(Icons.search), (value) {}),
                   ),
                   Spacer(
                     flex: 5,
@@ -257,54 +257,48 @@ class _OrderDetailsState extends State<OrderDetails> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(10),
-                        child: Expanded(
-                          // flex: 2,
-                          child: Container(
-                            // width: MediaQuery.of(context).size.width * .65,
-                            height: MediaQuery.of(context).size.height * .4,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.shade200,
-                                      offset: Offset(2, 2),
-                                      spreadRadius: 1,
-                                      blurRadius: 3)
-                                ]),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 25),
-                                  child: Container(
-                                      // width:
-                                      //     MediaQuery.of(context).size.width ,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .32,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey.shade200,
-                                                offset: Offset(2, 2),
-                                                spreadRadius: 1,
-                                                blurRadius: 3)
-                                          ]),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: MarkersPage(
-                                            lat: double.parse(widget.lat),
-                                            lang: double.parse(widget.lang),
-                                          ))),
-                                ),
-                              ],
-                            ),
+                        child: Container(
+                          // width: MediaQuery.of(context).size.width * .65,
+                          height: MediaQuery.of(context).size.height * .4,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey.shade200,
+                                    offset: Offset(2, 2),
+                                    spreadRadius: 1,
+                                    blurRadius: 3)
+                              ]),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 25),
+                                child: Container(
+                                    // width:
+                                    //     MediaQuery.of(context).size.width ,
+                                    height: MediaQuery.of(context).size.height *
+                                        .32,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.grey.shade200,
+                                              offset: Offset(2, 2),
+                                              spreadRadius: 1,
+                                              blurRadius: 3)
+                                        ]),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: MarkersPage(
+                                          lat: double.parse(widget.lat),
+                                          lang: double.parse(widget.lang),
+                                        ))),
+                              ),
+                            ],
                           ),
                         ),
                       ),
